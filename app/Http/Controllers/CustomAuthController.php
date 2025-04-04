@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Hash;
 
 class CustomAuthController extends Controller
 {
+    public function validate(Request $request){
+        return ApiResponse::success(Auth::user());
+    }
+
 
     public function register(Request $request)
     {
@@ -30,7 +34,11 @@ class CustomAuthController extends Controller
             $user->phone = $request->phone;
             $user->password = Hash::make($request->password);
             $user->save();
-            Auth::attempt(['email'=>$user->email, 'password'=>$user->password]);
+        $token=    Auth::attempt(['email'=>$user->email, 'password'=>$user->password]);
+            $user = Auth::user();
+            $user->token =$token;
+
+            $user->save();
             return ApiResponse::success(UserResource::make($user), 200);
         } catch (\Exception $e) {
             return ApiResponse::error(419, $e->getMessage(), $e->getMessage());
@@ -46,8 +54,13 @@ class CustomAuthController extends Controller
         } else {
             $authed = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
         }
-        if ($authed) {
-            return ApiResponse::success(UserResource::make (Auth::user()), 200);
+          if ($authed) {
+              $user = Auth::user();
+              $user->token =$authed;
+
+              $user->save();
+
+              return ApiResponse::success(UserResource::make ($user), 200);
         } else {
             return ApiResponse::error(419);
         }

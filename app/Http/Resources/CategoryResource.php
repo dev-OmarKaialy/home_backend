@@ -14,6 +14,7 @@ class CategoryResource extends JsonResource
             'name' => $this->name,
 
             'services' => $this->whenLoaded('services') , // Include services
+            'media' => $this->whenLoaded('media'),
         ];
     }
 

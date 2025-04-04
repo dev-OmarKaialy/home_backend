@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('phone')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->longText('token')->nullable();
             $table->string('profile_photo_path')->nullable();
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
