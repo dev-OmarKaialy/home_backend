@@ -19,4 +19,5 @@ class Category extends Model implements HasMedia
     {
         return $this->hasMany(Service::class);
     }
+
 }

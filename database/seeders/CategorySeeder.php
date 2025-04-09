@@ -9,13 +9,21 @@ class CategorySeeder extends Seeder
     public function run()
     {
         $categories = [
-            ['name' => 'Cleaning'],
-            ['name' => 'Plumbing'],
-            ['name' => 'Electrical'],
-            ['name' => 'Painting'],
-            ['name' => 'Carpentry'],
+            ['name' => 'Cleaning',   'image' => 'cleaning.jpg'],
+            ['name' => 'Plumbing',   'image' => 'plumbing.jpg'],
+            ['name' => 'Electrical', 'image' => 'electrical.jpg'],
+            ['name' => 'Painting',   'image' => 'painting.jpg'],
+            ['name' => 'Carpentry',  'image' => 'carpentry.jpg'],
         ];
 
-        Category::insert($categories);
+        foreach ($categories as $cat) {
+            $category = Category::create(['name' => $cat['name']]);
+
+            // أضف الصورة من ملف محلي
+            $category
+            ->addMedia(public_path("images/{$cat['image']}"))
+            ->preservingOriginal()
+                ->toMediaCollection('categories');
+        }
     }
 }

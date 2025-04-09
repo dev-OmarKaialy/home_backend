@@ -14,17 +14,19 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // User::factory(10)->create();
- User::factory()->create([
+
+        $this->call([
+            CategorySeeder::class,
+            ServiceSeeder::class,
+            RoleSeeder::class
+
+        ]);
+        User::factory()->create([
             'name' => 'Omar Kaialy',
             'username' => 'omarlord1221',
             'email' => 'omar12kaialy@gmail.com',
             'phone' => '+963932728290',
             'password' => '12345678',
-        ]);
- $this->call([
-     CategorySeeder::class,
-     ServiceSeeder::class
-
- ]);
+        ])->assignRole('admin');
     }
 }

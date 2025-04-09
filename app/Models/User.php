@@ -10,16 +10,19 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject, HasMedia
 {
-    use HasApiTokens;
+    use HasApiTokens, HasRoles;
 
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
     use HasProfilePhoto;
     use Notifiable;
-    use TwoFactorAuthenticatable;
+    use TwoFactorAuthenticatable, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -28,7 +31,9 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
+        'phone',
         'password',
     ];
 
@@ -53,9 +58,14 @@ class User extends Authenticatable implements JWTSubject
         'profile_photo_url',
     ];
 
-    public function addresses()
+    public function address()
     {
-        return $this->hasMany(Address::class);
+        return $this->morphOne(Address::class, 'addressable');
+    }
+
+    public function serviceProvider()
+    {
+        return $this->hasOne(ServiceProvider::class);
     }
 
     public function getJWTIdentifier()
@@ -95,5 +105,4 @@ class User extends Authenticatable implements JWTSubject
             'password' => 'hashed',
         ];
     }
-
 }

@@ -15,6 +15,7 @@ class ServiceResource extends JsonResource
             'category' =>  new CategoryResource($this->whenLoaded('category') ), // Include category
             'price' => $this->price,
             'description' => $this->description,
+            'image_url' => $this->getFirstMediaUrl('services'),
         ];
     }
 }

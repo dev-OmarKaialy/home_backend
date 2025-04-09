@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\ApiResponse;
-use App\Http\Requests\StoreAddressRequest;
 use App\Models\Address;
+use App\Helpers\ApiResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\AddressRequest;
 
 class AddressController extends Controller
 {
@@ -14,21 +15,28 @@ class AddressController extends Controller
      */
     public function index()
     {
-        $addresses =
-            Address::get();
+        $addresses = Address::get();
         return ApiResponse::success($addresses);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAddressRequest $request)
+    public function store(AddressRequest $request)
     {
-
         $validatedData = $request->validated();
-       $address= Address::create($validatedData);
-        return ApiResponse::success($address);
 
+        $user = Auth::user();
+        $address = $user->address;
+
+        if ($address) {
+            $address->update($validatedData);
+        } else {
+            // إذا ما عنده عنوان، ننشئ واحد جديد (اختياري)
+            $address = $user->address()->create($validatedData);
+        }
+
+        return ApiResponse::success($address);
     }
 
     /**

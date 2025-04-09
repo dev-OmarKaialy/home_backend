@@ -14,14 +14,13 @@ return new class extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('name');
-            $table->string('address');
-            $table->string('phone');
-            $table->string('note')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('house_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->foreign('house_id')->references('id')->on('houses')->cascadeOnDelete();
+            $table->string('city');
+            $table->string('region')->nullable(); // حي أو منطقة
+            $table->string('street')->nullable();
+            $table->string('building')->nullable();
+
+            // علاقات مرنة (Polymorphic)
+            $table->morphs('addressable'); // addressable_id + addressable_type
         });
     }
 

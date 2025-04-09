@@ -8,9 +8,10 @@ return new class extends Migration {
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('title'); // Notification title
-            $table->text('message'); // Notification message
+            $table->unsignedBigInteger('user_id');
+            $table->string('title');
+            $table->text('body');
+            $table->json('data');
             $table->boolean('is_read')->default(false); // Read status
             $table->timestamps();
         });

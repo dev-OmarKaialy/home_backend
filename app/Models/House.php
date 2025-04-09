@@ -10,8 +10,12 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class House extends Model implements HasMedia
 {
     use HasFactory,InteractsWithMedia;
-public function address(){
-    return $this->hasOne(Address::class);
+
+
+    public function address()
+{
+    return $this->morphOne(Address::class, 'addressable');
 }
+
 
 }

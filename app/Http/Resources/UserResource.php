@@ -20,7 +20,9 @@ class UserResource extends JsonResource
                 'full_name' => $this->name,
                 'phone' => $this->phone,
                 'email' => $this->email,
-                'token' => $this->token
+                'token' => $this->token,
+                'image'    => $this->getFirstMediaUrl('customers') ?: null, // إذا ما فيه صورة يرجع null
+                'address' => $this->address,
             ];
     }
 }
