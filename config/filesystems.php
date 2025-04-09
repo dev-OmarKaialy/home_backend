@@ -46,7 +46,12 @@ return [
             'throw' => false,
             'report' => false,
         ],
-
+        'custom_disk' => [
+                'driver' => 'local',
+                'root' => storage_path('images/temp'), // أو أي مسار مخصص تريده
+                'url' => env('APP_URL') . '/storage/images/temp',
+                'visibility' => 'public',
+            ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -75,6 +80,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('storage') => storage_path('images/temp'),
     ],
 
 ];

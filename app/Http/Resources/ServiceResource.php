@@ -13,7 +13,6 @@ class ServiceResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'category' =>  new CategoryResource($this->whenLoaded('category') ), // Include category
-            'price' => $this->price,
             'description' => $this->description,
             'image_url' => $this->getFirstMediaUrl('services'),
         ];

@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('houses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id'); // صاحب الإعلان
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('title'); // عنوان مختصر للإعلان
             $table->text('description');
             $table->decimal('price', 12, 2);
             $table->float('area')->nullable(); // مساحة
-            $table->enum('status', ['unavailable', 'rent' ,'sale'])->default('available');
+            $table->enum('status', ['unavailable', 'rent' ,'sale'])->default('unavailable');
             $table->enum('type', ['apartment', 'villa', 'house', 'studio'])->default('house');
             $table->boolean('is_furnished')->default(false);
             $table->unsignedInteger('favorites_count')->default(0);

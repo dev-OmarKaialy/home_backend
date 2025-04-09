@@ -12,7 +12,7 @@ class Service extends Model implements HasMedia
     //
     use HasFactory,InteractsWithMedia;
 
-    protected $fillable = ['name', 'category_id', 'price', 'description'];
+    protected $fillable = ['name', 'category_id', 'description'];
 
     // Inverse of one to many relationship
     public function category()
