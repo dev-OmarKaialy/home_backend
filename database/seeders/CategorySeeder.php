@@ -19,11 +19,16 @@ class CategorySeeder extends Seeder
         foreach ($categories as $cat) {
             $category = Category::create(['name' => $cat['name']]);
 
-            // أضف الصورة من ملف محلي
-            $category
-            ->addMedia(public_path("images/{$cat['image']}"))
-            ->preservingOriginal()
-                ->toMediaCollection('categories');
+            // تحديد المسار الصحيح للصور في public/images
+            $imagePath = public_path("images/{$cat['image']}");
+
+            // تحقق من وجود الصورة قبل إضافتها
+            if (file_exists($imagePath)) {
+                $category
+                    ->addMedia($imagePath)
+                    ->preservingOriginal()
+                    ->toMediaCollection('categories', 'custom_disk');
+            } 
         }
     }
 }
