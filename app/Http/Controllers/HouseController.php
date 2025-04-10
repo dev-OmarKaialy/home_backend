@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\House;
+use App\Helpers\ApiResponse;
 use Illuminate\Http\Request;
+use App\Services\ImageService;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\HouseRequest;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\HouseResource;
 
 class HouseController extends Controller
 {
@@ -12,7 +18,21 @@ class HouseController extends Controller
      */
     public function index()
     {
-        //
+        $houses = House::where('status', '!=', 'unavailable')
+            ->orderBy('views_count', 'desc')
+            ->paginate(10);
+
+        // Paginated response for infinite scroll support in frontend apps
+        return response()->json([
+            'status' => 'success',
+            'data' => HouseResource::collection($houses),
+            'meta' => [
+                'current_page' => $houses->currentPage(),
+                'last_page' => $houses->lastPage(),
+                'per_page' => $houses->perPage(),
+                'total' => $houses->total(),
+            ]
+        ]);
     }
 
     /**
@@ -26,17 +46,45 @@ class HouseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(HouseRequest $request)
     {
-        //
+        // Use DB transaction to ensure atomicity
+        DB::beginTransaction();
+
+        $imageService = new ImageService();
+        $validatedData = $request->validated();
+        $validatedData['user_id'] = Auth::user()->id;
+        // Create the house
+        $house = House::create($validatedData);
+
+        // Create the related address
+        $house->address()->create([
+            'city'     => $validatedData['city'],
+            'region'   => $validatedData['region'] ?? null,
+            'street'   => $validatedData['street'] ?? null,
+            'building' => $validatedData['building'] ?? null,
+        ]);
+
+        // Handle image upload if present
+        if ($request->hasFile('image')) {
+            $imageService->storeImage($house, $request->file('image'), 'houses');
+            $house->refresh(); // Refresh model to include media
+        }
+
+        DB::commit();
+
+        return ApiResponse::success(new HouseResource($house->load('address')), 201);
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(House $house)
     {
-        //
+        // زيادة views_count عند كل زيارة
+        $house->increment('views_count');
+        return ApiResponse::success(new HouseResource($house->load(['address', 'owner'])), 201);
     }
 
     /**
@@ -55,11 +103,13 @@ class HouseController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(House $house)
+
+    public function trendingHouses()
     {
-        //
+
+        $topHouses = House::where('status', '!=', 'unavailable')
+            ->orderBy('views_count', 'desc')->take(5)->get();
+
+        return ApiResponse::success( HouseResource::collection($topHouses), 201);
     }
 }

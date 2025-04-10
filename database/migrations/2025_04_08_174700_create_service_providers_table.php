@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('service_id')->constrained()->onDelete('cascade'); // الخدمة التي يقدمها
             $table->decimal('hourly_rate', 8, 2); // السعر لكل ساعة
-            $table->unsignedInteger('favorites_count')->default(0);
         });
     }
 

@@ -9,13 +9,17 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class House extends Model implements HasMedia
 {
-    use HasFactory,InteractsWithMedia;
+    use HasFactory, InteractsWithMedia;
 
+    protected $fillable = ['user_id','title', 'description', 'price', 'status', 'views_count'];
 
     public function address()
-{
-    return $this->morphOne(Address::class, 'addressable');
-}
+    {
+        return $this->morphOne(Address::class, 'addressable');
+    }
 
-
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id');  // العلاقة مع المستخدم
+    }
 }

@@ -17,21 +17,17 @@ class ServiceProviderResource extends JsonResource
         return [
             'id' => $this->id,
             'hourly_rate' => $this->hourly_rate,
+            'id' => $this->service->id,
+            'service' => $this->service->name,
+            'category' => $this->service->category->name ?? null,
 
-
-                'id' => $this->service->id,
-                'service' => $this->service->name,
-                'category' => $this->service->category->name ?? null,
-
-
-
-                'id' => $this->user->id,
-                'name' => $this->user->name,
-                'username' => $this->user->username,
-                'email' => $this->user->email,
-                'phone' => $this->user->phone,
-                'image_url' => $this->user->getFirstMediaUrl('service providers') ?: null,
-                'address' => new AddressResource($this->user->address),
+            'id' => $this->user->id,
+            'name' => $this->user->name,
+            'username' => $this->user->username,
+            'email' => $this->user->email,
+            'phone' => $this->user->phone,
+            'image_url' => $this->user->getFirstMediaUrl('service providers') ?: null,
+            'address' => new AddressResource($this->user->address),
 
         ];
     }

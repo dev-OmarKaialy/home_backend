@@ -97,12 +97,7 @@ class ServiceController extends Controller implements HasMiddleware
         } catch (\Throwable $e) {
             DB::rollBack(); // إلغاء أي عملية حفظ حصلت
 
-            Log::error('خطأ في إنشاء مزود الخدمة: ' . $e->getMessage());
-
-            return response()->json([
-                'message' => 'حدث خطأ أثناء إنشاء موظف الخدمة',
-                'error' => $e->getMessage(), // احذفها في الإنتاج
-            ], 500);
+            return ApiResponse::error( $e->getMessage(), 500);
         }
     }
 }

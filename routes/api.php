@@ -10,6 +10,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('categories', CategoryController::class);
+    Route::apiResource('houses', \App\Http\Controllers\HouseController::class);
     Route::apiResource('services', ServiceController::class);
     Route::get('get-addresses', [\App\Http\Controllers\AddressController::class, 'index']);
     Route::post('create-address', [\App\Http\Controllers\AddressController::class, 'store']);
@@ -18,6 +19,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('get-balance', [\App\Http\Controllers\WalletController::class, 'getBalance']);
     Route::post('create-service-provider', [\App\Http\Controllers\ServiceController::class, 'storeDerviceProvider']);
     Route::post('send-notification', [\App\Http\Controllers\NotificationController::class, 'sendNotificationApi']);
+    Route::get('trending-houses', [\App\Http\Controllers\HouseController::class, 'trendingHouses']);
 
 });
 Route::group(['prefix' => 'auth'], function () {
