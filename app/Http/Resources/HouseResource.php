@@ -33,10 +33,8 @@ class HouseResource extends JsonResource
                     'email' => $this->owner->email,
                     'image_url' => $this->owner->getFirstMediaUrl('customers'),
                     'phone' => $this->owner->phone
-
                 ];
             }),
-
         ];
     }
 }

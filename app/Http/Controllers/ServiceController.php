@@ -25,7 +25,7 @@ class ServiceController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware(\Spatie\Permission\Middleware\RoleMiddleware::using('admin')),
+            new Middleware(\Spatie\Permission\Middleware\RoleMiddleware::using('admin'), except:['show']),
         ];
     }
 
@@ -97,7 +97,13 @@ class ServiceController extends Controller implements HasMiddleware
         } catch (\Throwable $e) {
             DB::rollBack(); // إلغاء أي عملية حفظ حصلت
 
-            return ApiResponse::error( $e->getMessage(), 500);
+            return ApiResponse::error($e->getMessage(), 500);
         }
+    }
+
+    public function show(Service $service)
+    {
+        $service->load(['serviceProviders']);
+        return ApiResponse::success(ServiceResource::make($service), 201);
     }
 }

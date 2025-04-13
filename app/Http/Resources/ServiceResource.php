@@ -12,9 +12,11 @@ class ServiceResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'category' =>  new CategoryResource($this->whenLoaded('category') ), // Include category
+            'category' =>  new CategoryResource($this->whenLoaded('category') ),
             'description' => $this->description,
             'image_url' => $this->getFirstMediaUrl('services'),
+            'serviceProviders' => ServiceProviderResource::collection($this->whenLoaded('serviceProviders') ),
+
         ];
     }
 }

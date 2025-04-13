@@ -19,4 +19,9 @@ class Service extends Model implements HasMedia
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function serviceProviders()
+    {
+        return $this->hasMany(ServiceProvider::class);
+    }
 }

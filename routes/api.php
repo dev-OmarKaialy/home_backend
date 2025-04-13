@@ -20,6 +20,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('create-service-provider', [\App\Http\Controllers\ServiceController::class, 'storeDerviceProvider']);
     Route::post('send-notification', [\App\Http\Controllers\NotificationController::class, 'sendNotificationApi']);
     Route::get('trending-houses', [\App\Http\Controllers\HouseController::class, 'trendingHouses']);
+    Route::post('/orders/house/{houseId}', [\App\Http\Controllers\OrderController::class, 'requestHouse']);
+    Route::get('user/orders', [\App\Http\Controllers\OrderController::class, 'showUserOrders']);
+    Route::get('owner/orders', [\App\Http\Controllers\OrderController::class, 'showHouseOwnerOrders']);
+    Route::post('orders/{orderId}/update-status/{action}', [\App\Http\Controllers\OrderController::class, 'updateOrderStatus']);
 
 });
 Route::group(['prefix' => 'auth'], function () {

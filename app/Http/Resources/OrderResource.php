@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ServiceProviderResource extends JsonResource
+class OrderResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,17 +15,21 @@ class ServiceProviderResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'hourly_rate' => $this->hourly_rate,
-
+            'id'=>$this->id,
+            'notes'=>$this->notes,
+            'status'=>$this->status,
+            'payment_status'=>$this->payment_status,
             'user_id' => $this->user->id,
             'name' => $this->user->name,
             'username' => $this->user->username,
             'email' => $this->user->email,
             'phone' => $this->user->phone,
-            'image_url' => $this->user->getFirstMediaUrl('service providers') ?: null,
-            'address' => new AddressResource($this->user->address),
+            'image_url' => $this->user->getFirstMediaUrl('customers') ?: null,
+            'house' => new HouseResource($this->whenLoaded('house')),
+            'address' => new AddressResource($this->whenLoaded('address')),
 
         ];
     }
+
+
 }
