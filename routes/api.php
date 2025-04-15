@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('orders/{orderId}/update-status/{action}', [\App\Http\Controllers\OrderController::class, 'updateOrderStatus']);
     Route::post('/orders/service-provider', [\App\Http\Controllers\OrderController::class, 'storeServiceOrder']);
     Route::get('service-provider/orders', [\App\Http\Controllers\OrderController::class, 'showServiceProviderOrders']);
+    Route::get('/notifications', [App\Http\Controllers\NotificationController::class, 'sendNotification'])->name('notifications');
 
 });
 Route::group(['prefix' => 'auth'], function () {
