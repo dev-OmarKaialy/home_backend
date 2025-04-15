@@ -14,8 +14,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('services', ServiceController::class);
     Route::get('get-addresses', [\App\Http\Controllers\AddressController::class, 'index']);
     Route::post('create-address', [\App\Http\Controllers\AddressController::class, 'store']);
-    Route::post('top-up', [\App\Http\Controllers\WalletController::class, 'topUp']);
-    Route::post('withdraw', [\App\Http\Controllers\WalletController::class, 'withdraw']);
+    Route::post('wallet-transaction', [\App\Http\Controllers\WalletController::class, 'createTransactionRequest']);
     Route::get('get-balance', [\App\Http\Controllers\WalletController::class, 'getBalance']);
     Route::post('create-service-provider', [\App\Http\Controllers\ServiceController::class, 'storeDerviceProvider']);
     Route::post('send-notification', [\App\Http\Controllers\NotificationController::class, 'sendNotificationApi']);
@@ -29,7 +28,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/notifications', [\App\Http\Controllers\NotificationController::class, 'sendNotification'])->name('notifications');
     Route::get('services-popular', [\App\Http\Controllers\ServiceController::class, 'popularServices']);
     Route::get('service-providers/popular', [\App\Http\Controllers\ServiceController::class, 'popularServiceProviders']);
-
+    Route::post('/transactions/{id}/approve', [\App\Http\Controllers\WalletController::class, 'approveTransaction']);
+    Route::post('/transactions/{id}/reject', [\App\Http\Controllers\WalletController::class, 'rejectTransaction']);
 });
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [\App\Http\Controllers\CustomAuthController::class, 'login']);

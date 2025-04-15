@@ -27,8 +27,8 @@ class OrderResource extends JsonResource
             'image_url' => $this->user->getFirstMediaUrl('customers') ?: null,
             'house' => new HouseResource($this->whenLoaded('house')),
             'serviceProviders' => new ServiceProviderResource($this->whenLoaded('serviceProviders')),
-
             'address' => new AddressResource($this->whenLoaded('address')),
+            'created_at' => $this->created_at->format('Y-m-d'), // تنسيق التاريخ والوقت
 
         ];
     }
