@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->text('notes')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('service_provider_id')->nullable()->constrained('service_providers')->onDelete('set null');
+            $table->foreignId('service_provider_id')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('house_id')->nullable()->constrained('houses')->onDelete('set null');
             $table->enum('status', ['pending', 'approved', 'rejected','confirmed','completed'])->default('pending');
             $table->enum('payment_status', ['unpaid', 'partially_paid', 'paid'])->default('unpaid');

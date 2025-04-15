@@ -55,8 +55,7 @@ class ServiceController extends Controller implements HasMiddleware
 
     public function storeDerviceProvider(ServiceProviderRequest $service_provider)
     {
-        // dd($request);
-        try {
+
             DB::beginTransaction(); // لتفادي إنشاء بيانات جزئية إذا حدث خطأ
 
             $validatedData = $service_provider->validated();
@@ -68,6 +67,8 @@ class ServiceController extends Controller implements HasMiddleware
             $user->email = $validatedData['email'];
             $user->phone = $validatedData['phone'];
             $user->password = Hash::make($validatedData['password']);
+            $user->hourly_rate =$validatedData['hourly_rate'];
+            $user->service_id=$validatedData['service_id'];
             $user->save();
 
             $user->assignRole('service provider');
@@ -84,21 +85,10 @@ class ServiceController extends Controller implements HasMiddleware
                 'building' => $validatedData['building'] ?? null,
             ]);
 
-            // 3. سجل موظف الخدمة
-            $serviceProvider = new \App\Models\ServiceProvider();
-            $serviceProvider->user_id = $user->id;
-            $serviceProvider->service_id = $validatedData['service_id'];
-            $serviceProvider->hourly_rate = $validatedData['hourly_rate'];
-            $serviceProvider->save();
-
             DB::commit(); // حفظ البيانات
 
-            return ApiResponse::success(new ServiceProviderResource($serviceProvider), 201);
-        } catch (\Throwable $e) {
-            DB::rollBack(); // إلغاء أي عملية حفظ حصلت
+            return ApiResponse::success(new ServiceProviderResource($user), 201);
 
-            return ApiResponse::error($e->getMessage(), 500);
-        }
     }
 
     public function show(Service $service)

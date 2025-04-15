@@ -24,6 +24,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('user/orders', [\App\Http\Controllers\OrderController::class, 'showUserOrders']);
     Route::get('owner/orders', [\App\Http\Controllers\OrderController::class, 'showHouseOwnerOrders']);
     Route::post('orders/{orderId}/update-status/{action}', [\App\Http\Controllers\OrderController::class, 'updateOrderStatus']);
+    Route::post('/orders/service-provider', [\App\Http\Controllers\OrderController::class, 'storeServiceOrder']);
+    Route::get('service-provider/orders', [\App\Http\Controllers\OrderController::class, 'showServiceProviderOrders']);
 
 });
 Route::group(['prefix' => 'auth'], function () {

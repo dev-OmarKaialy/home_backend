@@ -15,16 +15,15 @@ class ServiceProviderResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
             'hourly_rate' => $this->hourly_rate,
 
-            'user_id' => $this->user->id,
-            'name' => $this->user->name,
-            'username' => $this->user->username,
-            'email' => $this->user->email,
-            'phone' => $this->user->phone,
-            'image_url' => $this->user->getFirstMediaUrl('service providers') ?: null,
-            'address' => new AddressResource($this->user->address),
+            'user_id' => $this->id,
+            'name' => $this->name,
+            'username' => $this->username,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'image_url' => $this->getFirstMediaUrl('service providers') ?: null,
+            'address' => new AddressResource($this->address),
 
         ];
     }

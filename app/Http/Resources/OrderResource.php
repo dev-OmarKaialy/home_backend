@@ -26,6 +26,8 @@ class OrderResource extends JsonResource
             'phone' => $this->user->phone,
             'image_url' => $this->user->getFirstMediaUrl('customers') ?: null,
             'house' => new HouseResource($this->whenLoaded('house')),
+            'serviceProviders' => new ServiceProviderResource($this->whenLoaded('serviceProviders')),
+
             'address' => new AddressResource($this->whenLoaded('address')),
 
         ];

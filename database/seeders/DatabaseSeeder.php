@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             ServiceSeeder::class,
             RoleSeeder::class,
-            HouseSeeder::class
+
 
         ]);
         User::factory()->create([
@@ -29,5 +29,6 @@ class DatabaseSeeder extends Seeder
             'phone' => '+963932728290',
             'password' => '12345678',
         ])->assignRole('admin');
+        $this->call(HouseSeeder::class);
     }
 }

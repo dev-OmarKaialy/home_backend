@@ -23,10 +23,7 @@ class Order extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function serviceProvider()
-    {
-        return $this->belongsTo(ServiceProvider::class);
-    }
+
 
     public function house()
     {
@@ -40,7 +37,7 @@ class Order extends Model
 
     public function serviceProviders()
 {
-    return $this->belongsToMany(ServiceProvider::class, 'order_service_provider');
+    return $this->belongsTo(User::class,'service_provider_id');
 }
 
 }
