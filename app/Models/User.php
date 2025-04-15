@@ -64,9 +64,9 @@ class User extends Authenticatable implements JWTSubject, HasMedia
         return $this->morphOne(Address::class, 'addressable');
     }
 
-    public function serviceProvider()
+    public function service()
     {
-        return $this->hasOne(ServiceProvider::class);
+        return $this->belongsTo(Service::class);
     }
 
     public function getJWTIdentifier()

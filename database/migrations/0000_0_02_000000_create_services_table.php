@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('category_id')->constrained()->onDelete('cascade'); // Foreign key to categories
             $table->text('description');
+            $table->unsignedBigInteger('orders_count')->default(0);
             $table->timestamps();
         });
     }

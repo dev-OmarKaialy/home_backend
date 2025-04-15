@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\OrderResource;
+use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -124,6 +125,12 @@ class OrderController extends Controller
                 'building' => $detail['address']['building'],
             ]);
             $orders[] = $order;
+            // احصل على الخدمة المرتبطة بموظف الخدمة
+    $serviceProvider = User::findOrFail($detail['service_provider_id']);
+    $service = $serviceProvider->service;
+
+    // زوّد العداد
+    $service->increment('orders_count');
         }
 
         DB::commit();
