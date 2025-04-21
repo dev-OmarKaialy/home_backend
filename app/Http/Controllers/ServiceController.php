@@ -73,7 +73,7 @@ class ServiceController extends Controller implements HasMiddleware
 
         $user->assignRole('service provider');
         if ($service_provider->hasFile('image')) {
-            $imageService->storeImage($user, $service_provider->file('image'), 'service providers','popularServiceProviders');
+            $imageService->storeImage($user, $service_provider->file('image'), 'service providers');
             // Refresh the user model to get updated data from DB (especially image path)
             $user->refresh();
         }

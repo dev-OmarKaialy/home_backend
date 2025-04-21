@@ -122,9 +122,6 @@ class CustomAuthController extends Controller
             $user->password = Hash::make($request->new_password); // Hash the new password before saving
             $user->save(); // Save the updated user data to the database
 
-            // Invalidate the current JWT token to log the user out of all sessions
-            JWTAuth::invalidate(JWTAuth::getToken()); // Log the user out from all devices using the old token
-
             // Return a success response indicating that the password has been updated
             return ApiResponse::success('Password updated successfully', 200);
         } catch (\Exception $e) {
@@ -141,5 +138,5 @@ class CustomAuthController extends Controller
 
         return ApiResponse::success(null, 200, 'Logged out successfully.');
     }
-    
+
 }

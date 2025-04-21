@@ -22,7 +22,7 @@ class ServiceProviderResource extends JsonResource
             'username' => $this->username,
             'email' => $this->email,
             'phone' => $this->phone,
-            'image_url' => $this->getFirstMediaUrl('service providers') ?: null,
+            'images' => $this->getMedia('service providers')->pluck('original_url'),
             'address' => new AddressResource($this->address),
 
         ];

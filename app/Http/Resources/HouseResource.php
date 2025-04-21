@@ -22,7 +22,7 @@ class HouseResource extends JsonResource
             'status'       => $this->status,
 
             // Get image URL from media library (collection: 'service houses')
-            'image'        => $this->getFirstMediaUrl('houses'),
+            'images' => $this->getMedia('houses')->pluck('original_url'),
 
             // Related address
             'address' => new AddressResource($this->whenLoaded('address')),
