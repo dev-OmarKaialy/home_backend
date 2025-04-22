@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('service-providers/popular', [\App\Http\Controllers\ServiceController::class, 'popularServiceProviders']);
     Route::post('/transactions/{id}/approve', [\App\Http\Controllers\WalletController::class, 'approveTransaction']);
     Route::post('/transactions/{id}/reject', [\App\Http\Controllers\WalletController::class, 'rejectTransaction']);
+    Route::post('profile', [\App\Http\Controllers\CustomAuthController::class, 'validate']);
 });
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [\App\Http\Controllers\CustomAuthController::class, 'login']);
