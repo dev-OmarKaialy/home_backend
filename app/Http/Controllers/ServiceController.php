@@ -53,7 +53,7 @@ class ServiceController extends Controller implements HasMiddleware
         return ApiResponse::success(ServiceResource::make($newService), 201);
     }
 
-    public function storeDerviceProvider(ServiceProviderRequest $service_provider)
+    public function storeServiceProvider(ServiceProviderRequest $service_provider)
     {
 
         DB::beginTransaction(); // لتفادي إنشاء بيانات جزئية إذا حدث خطأ
@@ -74,6 +74,12 @@ class ServiceController extends Controller implements HasMiddleware
         $user->assignRole('service provider');
         if ($service_provider->hasFile('image')) {
             $imageService->storeImage($user, $service_provider->file('image'), 'service providers');
+            // Refresh the user model to get updated data from DB (especially image path)
+            $user->refresh();
+        }
+
+        if ($service_provider->hasFile('works')) {
+            $imageService->storeImage($user, $service_provider->file('works'), 'works');
             // Refresh the user model to get updated data from DB (especially image path)
             $user->refresh();
         }

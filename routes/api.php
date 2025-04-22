@@ -16,7 +16,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('create-address', [\App\Http\Controllers\AddressController::class, 'store']);
     Route::post('wallet-transaction', [\App\Http\Controllers\WalletController::class, 'createTransactionRequest']);
     Route::get('get-balance', [\App\Http\Controllers\WalletController::class, 'getBalance']);
-    Route::post('create-service-provider', [\App\Http\Controllers\ServiceController::class, 'storeDerviceProvider']);
+    Route::post('create-service-provider', [\App\Http\Controllers\ServiceController::class, 'storeServiceProvider']);
     Route::post('send-notification', [\App\Http\Controllers\NotificationController::class, 'sendNotificationApi']);
     Route::get('trending-houses', [\App\Http\Controllers\HouseController::class, 'trendingHouses']);
     Route::post('/orders/house/{houseId}', [\App\Http\Controllers\OrderController::class, 'requestHouse']);
