@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/transactions/{id}/approve', [\App\Http\Controllers\WalletController::class, 'approveTransaction']);
     Route::post('/transactions/{id}/reject', [\App\Http\Controllers\WalletController::class, 'rejectTransaction']);
     Route::get('profile', [\App\Http\Controllers\CustomAuthController::class, 'validate']);
+     Route::apiResource('join-request', \App\Http\Controllers\JoinRequestController::class);
 });
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [\App\Http\Controllers\CustomAuthController::class, 'login']);
