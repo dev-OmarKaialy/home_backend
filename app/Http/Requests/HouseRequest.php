@@ -26,7 +26,7 @@ class HouseRequest extends FormRequest
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
             'status' => 'required|in:sale,rent', // Example: status must be 'sale' or 'rent'
-
+            'period' => 'nullable|integer|min:1',
             'city' => 'required|string|max:255',
             'region' => 'nullable|string|max:255',
             'street' => 'nullable|string|max:255',

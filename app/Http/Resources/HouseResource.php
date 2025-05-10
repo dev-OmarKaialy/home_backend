@@ -20,7 +20,7 @@ class HouseResource extends JsonResource
             'description'  => $this->description,
             'price'        => $this->price,
             'status'       => $this->status,
-
+            'period'       => $this->period,
             // Get image URL from media library (collection: 'service houses')
             'images' => $this->getMedia('houses')->pluck('original_url'),
 
