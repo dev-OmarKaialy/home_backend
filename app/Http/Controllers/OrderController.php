@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\House;
 use App\Models\Order;
 use App\Helpers\ApiResponse;
@@ -9,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\OrderResource;
-use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -30,6 +31,8 @@ class OrderController extends Controller
             'user_id' => Auth::id(),
             'house_id' => $house->id,
             'notes' => $request->input('notes'),
+            'status' => 'pending',
+            'payment_status' => 'unpaid',
         ]);
         DB::commit();
 
@@ -40,10 +43,10 @@ class OrderController extends Controller
     {
         if (Auth::user()->hasRole('admin')) {
             // إذا كان المستخدم مشرفًا، جلب جميع الطلبات
-            $orders = Order::with('house', 'house.owner','house.address','serviceProviders','address')->paginate(10);
+            $orders = Order::with('house', 'house.owner', 'house.address', 'serviceProviders', 'address')->paginate(10);
         } else {
-        // جلب طلبات العميل مع تحميل معلومات البيت
-        $orders = Order::with('house', 'house.owner','house.address','serviceProviders','address')->where('user_id', Auth::id())->paginate(10);
+            // جلب طلبات العميل مع تحميل معلومات البيت
+            $orders = Order::with('house', 'house.owner', 'house.address', 'serviceProviders', 'address')->where('user_id', Auth::id())->paginate(10);
         }
         // Paginated response for infinite scroll support in frontend apps
         return response()->json([
@@ -61,10 +64,10 @@ class OrderController extends Controller
     public function showHouseOwnerOrders()
     {
 
-            // إذا لم يكن المستخدم مشرفًا، جلب طلبات صاحب المنزل
-            $orders = Order::with('user', 'house', 'house.owner')->whereHas('house', function ($query) {
-                $query->where('user_id', Auth::id());
-            })->paginate(10);
+        // إذا لم يكن المستخدم مشرفًا، جلب طلبات صاحب المنزل
+        $orders = Order::with('user', 'house', 'house.owner')->whereHas('house', function ($query) {
+            $query->where('user_id', Auth::id());
+        })->paginate(10);
 
 
         // Paginated response for infinite scroll support in frontend apps
@@ -108,11 +111,13 @@ class OrderController extends Controller
         DB::beginTransaction();
 
         foreach ($request->service_requests as $detail) {
+            $serviceDate = Carbon::parse($detail['service_date']);
             // إنشاء الطلب
             $order = Order::create([
                 'user_id' => Auth::id(),
                 'notes' => $detail['notes'] ?? null,
                 'service_provider_id' => $detail['service_provider_id'],
+                'service_date' => $serviceDate,
                 'status' => 'pending',
                 'payment_status' => 'unpaid',
             ]);
@@ -126,17 +131,16 @@ class OrderController extends Controller
             ]);
             $orders[] = $order;
             // احصل على الخدمة المرتبطة بموظف الخدمة
-    $serviceProvider = User::findOrFail($detail['service_provider_id']);
-    $service = $serviceProvider->service;
+            $serviceProvider = User::findOrFail($detail['service_provider_id']);
+            $service = $serviceProvider->service;
 
-    // زوّد العداد
-    $service->increment('orders_count');
+            // زوّد العداد
+            $service->increment('orders_count');
         }
 
         DB::commit();
 
         return ApiResponse::success(OrderResource::collection($orders), 201);
-
     }
 
 

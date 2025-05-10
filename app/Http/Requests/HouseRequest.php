@@ -31,7 +31,7 @@ class HouseRequest extends FormRequest
             'region' => 'nullable|string|max:255',
             'street' => 'nullable|string|max:255',
             'building' => 'nullable|string|max:255',
-
+            'service_date' => 'nullable|date_format:Y-m-d H:i:s'
         ];
     }
 }

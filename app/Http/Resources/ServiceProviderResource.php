@@ -18,6 +18,9 @@ class ServiceProviderResource extends JsonResource
             'hourly_rate' => $this->hourly_rate,
 
             'user_id' => $this->id,
+            'service_name' => $this->whenLoaded('service', function () {
+                return $this->service->name;
+            }),
             'name' => $this->name,
             'username' => $this->username,
             'email' => $this->email,

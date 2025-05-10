@@ -25,7 +25,7 @@ class ServiceController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware(\Spatie\Permission\Middleware\RoleMiddleware::using('admin'), except: ['show','popularServices','popularServiceProviders']),
+            new Middleware(\Spatie\Permission\Middleware\RoleMiddleware::using('admin'), except: ['show', 'popularServices', 'popularServiceProviders']),
         ];
     }
 
@@ -127,4 +127,23 @@ class ServiceController extends Controller implements HasMiddleware
         return ApiResponse::success(ServiceProviderResource::collection($providers));
     }
 
+    public function serviceProviders(Request $request)
+    {
+        $query = User::role('service provider')
+            ->with(['service'])
+            ->when($request->filled('service_id'), function ($q) use ($request) {
+                $q->where('service_id', $request->service_id);
+            })
+            ->when($request->filled('hourly_rate'), function ($q) use ($request) {
+                $q->where('hourly_rate', '=', $request->hourly_rate);
+            })
+            ->when($request->filled('service_date'), function ($q) use ($request) {
+                $q->whereDoesntHave('serviceOrders', function ($q2) use ($request) {
+                    $q2->whereDate('service_date', $request->service_date);
+                });
+            });
+
+        $providers = $query->get();
+        return ApiResponse::success(ServiceProviderResource::collection($providers),200);
+    }
 }

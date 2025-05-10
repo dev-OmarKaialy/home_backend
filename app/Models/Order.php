@@ -13,6 +13,7 @@ class Order extends Model
         'notes',
         'user_id',
         'service_provider_id',
+        'service_date',
         'house_id',
         'status',
         'payment_status'

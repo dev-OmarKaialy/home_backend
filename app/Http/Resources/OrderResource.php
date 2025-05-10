@@ -24,10 +24,11 @@ class OrderResource extends JsonResource
             'username' => $this->user->username,
             'email' => $this->user->email,
             'phone' => $this->user->phone,
+            'service_date'=>$this->when($this->service_provider_id != NULL ,$this->service_date),
             'image_url' => $this->user->getFirstMediaUrl('customers') ?: null,
-            'house' => new HouseResource($this->whenLoaded('house')),
-            'serviceProviders' => new ServiceProviderResource($this->whenLoaded('serviceProviders')),
-            'address' => new AddressResource($this->whenLoaded('address')),
+            'house' => $this->when($this->house_id != NULL ,new HouseResource($this->whenLoaded('house'))),
+            'serviceProviders' => $this->when($this->service_provider_id != NULL ,new ServiceProviderResource($this->whenLoaded('serviceProviders'))),
+            'address' => $this->when($this->service_provider_id != NULL ,new AddressResource($this->whenLoaded('address'))),
             'created_at' => $this->created_at->format('Y-m-d'), // تنسيق التاريخ والوقت
 
         ];

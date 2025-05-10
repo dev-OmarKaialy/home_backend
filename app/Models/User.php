@@ -94,6 +94,11 @@ class User extends Authenticatable implements JWTSubject, HasMedia
         return $this->hasOne(Wallet::class);
     }
 
+    public function serviceOrders()
+    {
+        return $this->hasMany(Order::class, 'service_provider_id');
+    }
+
     /**
      * Get the attributes that should be cast.
      *
