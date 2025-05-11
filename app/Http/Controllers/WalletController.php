@@ -99,7 +99,7 @@ class WalletController extends Controller implements HasMiddleware
 
     public function index()
     {
-        //
+        return ApiResponse::success(Transaction::get());
     }
 
     /**

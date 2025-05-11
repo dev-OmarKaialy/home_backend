@@ -15,6 +15,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('get-addresses', [\App\Http\Controllers\AddressController::class, 'index']);
     Route::post('create-address', [\App\Http\Controllers\AddressController::class, 'store']);
     Route::post('wallet-transaction', [\App\Http\Controllers\WalletController::class, 'createTransactionRequest']);
+    Route::get('transactions', [\App\Http\Controllers\WalletController::class, 'index']);
     Route::get('get-balance', [\App\Http\Controllers\WalletController::class, 'getBalance']);
     Route::post('create-service-provider', [\App\Http\Controllers\ServiceController::class, 'storeServiceProvider']);
     Route::get('service-provider', [\App\Http\Controllers\ServiceController::class, 'serviceProviders']);

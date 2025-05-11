@@ -23,10 +23,10 @@ class DatabaseSeeder extends Seeder
 
         ]);
         User::factory()->create([
-            'name' => 'Omar Kaialy',
-            'username' => 'omarlord1221',
-            'email' => 'omar12kaialy@gmail.com',
-            'phone' => '+963932728290',
+            'name' => 'Admin Admin',
+            'username' => 'admin',
+            'email' => 'admin@gmail.com',
+            'phone' => '+9639876543210',
             'password' => '12345678',
         ])->assignRole('admin');
         $this->call(HouseSeeder::class);
