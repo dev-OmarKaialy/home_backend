@@ -44,7 +44,7 @@ class ImageService
                 $hash = BlurHash::encode($imagePath);
 
                 // حفظ الصورة
-                $mediaModel = $model->addMedia($imagePath)->preservingOriginal()->toMediaCollection($collection, 'custom_disk');
+                $mediaModel = $model->addMedia($imagePath)->preservingOriginal()->toMediaCollection($collection, 'public');
 
                 // إضافة الـ blurhash كخاصية مخصصة
                 $mediaModel->setCustomProperty('hash', $hash);

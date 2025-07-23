@@ -49,7 +49,7 @@ return [
         'custom_disk' => [
                 'driver' => 'local',
                 'root' => storage_path('images/temp'), // أو أي مسار مخصص تريده
-                'url' => env('APP_URL') . '/home_backend/storage/images/temp',
+                'url' => env('APP_URL') . '/storage',
                 'visibility' => 'public',
             ],
         's3' => [
