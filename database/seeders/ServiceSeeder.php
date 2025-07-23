@@ -36,5 +36,6 @@ class ServiceSeeder extends Seeder
          ->toMediaCollection('services', 'custom_disk');
  }
         }
+     $this->call(ServiceProviderSeeder::class);
     }
 }
