@@ -76,6 +76,11 @@ class AddressController extends Controller
      */
     public function destroy(Address $address)
     {
-        //
+        try {
+            $address->delete();
+            return ApiResponse::success('Address deleted successfully', 200);
+        } catch (\Exception $e) {
+            return ApiResponse::error('Failed to delete address', 500, $e->getMessage());
+        }
     }
 }

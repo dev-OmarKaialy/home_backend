@@ -69,4 +69,14 @@ class CategoryController extends Controller implements HasMiddleware
             200
         );
     }
+
+    public function destroy(Category $category)
+    {
+        try {
+            $category->delete();
+            return ApiResponse::success('Category deleted successfully', 200);
+        } catch (\Exception $e) {
+            return ApiResponse::error('Failed to delete category', 500, $e->getMessage());
+        }
+    }
 }

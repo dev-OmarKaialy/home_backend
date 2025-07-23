@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('field');
             $table->string('cv');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

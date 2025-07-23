@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use App\Helpers\ApiResponse;
 
 class TransactionController extends Controller
 {
@@ -60,6 +61,11 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        try {
+            $transaction->delete();
+            return ApiResponse::success('Transaction deleted successfully', 200);
+        } catch (\Exception $e) {
+            return ApiResponse::error('Failed to delete transaction', 500, $e->getMessage());
+        }
     }
 }

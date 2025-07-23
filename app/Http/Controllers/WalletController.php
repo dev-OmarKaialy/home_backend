@@ -147,6 +147,11 @@ class WalletController extends Controller implements HasMiddleware
      */
     public function destroy(Wallet $wallet)
     {
-        //
+        try {
+            $wallet->delete();
+            return ApiResponse::success('Wallet deleted successfully', 200);
+        } catch (\Exception $e) {
+            return ApiResponse::error('Failed to delete wallet', 500, $e->getMessage());
+        }
     }
 }

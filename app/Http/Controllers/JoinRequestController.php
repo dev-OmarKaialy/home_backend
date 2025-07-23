@@ -36,4 +36,37 @@ class JoinRequestController extends Controller implements HasMiddleware
             return ApiResponse::error(419, $e->getMessage(), $e->getMessage());
         }
     }
+
+    public function accept($id)
+    {
+        $joinRequest = ModelsJoinRequest::findOrFail($id);
+        if ($joinRequest->status !== 'pending') {
+            return ApiResponse::error(400, 'Status cannot be changed after being accepted or rejected.', 'Status cannot be changed after being accepted or rejected.');
+        }
+        $joinRequest->status = 'accepted';
+        $joinRequest->save();
+        return ApiResponse::success(JoinRequestResource::make($joinRequest), 200);
+    }
+
+    public function reject($id)
+    {
+        $joinRequest = ModelsJoinRequest::findOrFail($id);
+        if ($joinRequest->status !== 'pending') {
+            return ApiResponse::error(400, 'Status cannot be changed after being accepted or rejected.', 'Status cannot be changed after being accepted or rejected.');
+        }
+        $joinRequest->status = 'rejected';
+        $joinRequest->save();
+        return ApiResponse::success(JoinRequestResource::make($joinRequest), 200);
+    }
+
+    public function destroy($id)
+    {
+        $joinRequest = ModelsJoinRequest::findOrFail($id);
+        try {
+            $joinRequest->delete();
+            return ApiResponse::success('Join request deleted successfully', 200);
+        } catch (\Exception $e) {
+            return ApiResponse::error('Failed to delete join request', 500, $e->getMessage());
+        }
+    }
 }

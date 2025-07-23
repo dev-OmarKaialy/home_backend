@@ -146,4 +146,14 @@ class ServiceController extends Controller implements HasMiddleware
         $providers = $query->get();
         return ApiResponse::success(ServiceProviderResource::collection($providers),200);
     }
+
+    public function destroy(Service $service)
+    {
+        try {
+            $service->delete();
+            return ApiResponse::success('Service deleted successfully', 200);
+        } catch (\Exception $e) {
+            return ApiResponse::error('Failed to delete service', 500, $e->getMessage());
+        }
+    }
 }

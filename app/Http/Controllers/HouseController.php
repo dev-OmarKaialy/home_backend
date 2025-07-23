@@ -112,4 +112,14 @@ class HouseController extends Controller
 
         return ApiResponse::success( HouseResource::collection($topHouses), 201);
     }
+
+    public function destroy(House $house)
+    {
+        try {
+            $house->delete();
+            return ApiResponse::success('House deleted successfully', 200);
+        } catch (\Exception $e) {
+            return ApiResponse::error('Failed to delete house', 500, $e->getMessage());
+        }
+    }
 }

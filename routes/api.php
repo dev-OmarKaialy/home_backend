@@ -33,7 +33,17 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/transactions/{id}/approve', [\App\Http\Controllers\WalletController::class, 'approveTransaction']);
     Route::post('/transactions/{id}/reject', [\App\Http\Controllers\WalletController::class, 'rejectTransaction']);
     Route::get('profile', [\App\Http\Controllers\CustomAuthController::class, 'validate']);
+    Route::post('join-request/{id}/accept', [\App\Http\Controllers\JoinRequestController::class, 'accept']);
+    Route::post('join-request/{id}/reject', [\App\Http\Controllers\JoinRequestController::class, 'reject']);
     Route::apiResource('join-request', \App\Http\Controllers\JoinRequestController::class);
+    Route::delete('categories/{category}', [\App\Http\Controllers\CategoryController::class, 'destroy']);
+    Route::delete('services/{service}', [\App\Http\Controllers\ServiceController::class, 'destroy']);
+    Route::delete('houses/{house}', [\App\Http\Controllers\HouseController::class, 'destroy']);
+    Route::delete('orders/{order}', [\App\Http\Controllers\OrderController::class, 'destroy']);
+    Route::delete('transactions/{transaction}', [\App\Http\Controllers\TransactionController::class, 'destroy']);
+    Route::delete('wallets/{wallet}', [\App\Http\Controllers\WalletController::class, 'destroy']);
+    Route::delete('addresses/{address}', [\App\Http\Controllers\AddressController::class, 'destroy']);
+    Route::delete('join-request/{id}', [\App\Http\Controllers\JoinRequestController::class, 'destroy']);
 });
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [\App\Http\Controllers\CustomAuthController::class, 'login']);

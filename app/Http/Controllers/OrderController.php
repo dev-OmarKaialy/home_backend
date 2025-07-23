@@ -191,4 +191,14 @@ class OrderController extends Controller
 
         return ApiResponse::success(['message' => $message], 200);
     }
+
+    public function destroy(Order $order)
+    {
+        try {
+            $order->delete();
+            return ApiResponse::success('Order deleted successfully', 200);
+        } catch (\Exception $e) {
+            return ApiResponse::error('Failed to delete order', 500, $e->getMessage());
+        }
+    }
 }
