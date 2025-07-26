@@ -95,14 +95,6 @@ class HouseController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, House $house)
-    {
-        //
-    }
-
 
     public function trendingHouses()
     {
@@ -110,7 +102,7 @@ class HouseController extends Controller
         $topHouses = House::where('status', '!=', 'unavailable')
             ->orderBy('views_count', 'desc')->take(5)->get();
 
-        return ApiResponse::success( HouseResource::collection($topHouses), 201);
+        return ApiResponse::success(HouseResource::collection($topHouses), 201);
     }
 
     public function destroy(House $house)

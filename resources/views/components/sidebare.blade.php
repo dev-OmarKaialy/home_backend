@@ -12,8 +12,8 @@
                              <i class="fas fa-chart-bar"></i>Dashboard</a>
                      </li>
                      <li>
-                         <a href="{{route('homes')}}">
-                             <i class="fas fa-chart-bar"></i>Homes</a>
+                         <a href="{{route('houses')}}">
+                             <i class="fas fa-chart-bar"></i>Houses</a>
                      </li>
 
 
