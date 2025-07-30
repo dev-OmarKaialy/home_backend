@@ -15,7 +15,10 @@
                          <a href="{{route('houses')}}">
                              <i class="fas fa-chart-bar"></i>Houses</a>
                      </li>
-
+                     <li>
+                         <a href="{{route('services')}}">
+                             <i class="fas fa-chart-bar"></i>Services</a>
+                     </li>
 
                  </ul>
              </nav>
