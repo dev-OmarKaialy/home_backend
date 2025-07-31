@@ -1,4 +1,4 @@
-@include('components.header', ['title' => 'Add Service'])
+@include('components.header', ['title' => 'Add Category'])
 
 <body>
 
@@ -10,28 +10,14 @@
             @include('components.header-desktop')
 
             <div class="container py-5" style="margin-top: 50px;">
-                <h2 class="mb-4 text-center">Create New Service</h2>
+                <h2 class="mb-4 text-center">Create New Category</h2>
 
-                <form action="{{ route('services.store') }}" method="POST" enctype="multipart/form-data" class="card p-4 shadow-sm">
+                <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data" class="card p-4 shadow-sm">
                     @csrf
 
                     <div class="mb-3">
-                        <label for="name" class="form-label">Service Name:</label>
+                        <label for="name" class="form-label">Category Name:</label>
                         <input type="text" name="name" id="name" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="description" class="form-label">Description:</label>
-                        <textarea name="description" id="description" rows="4" class="form-control"></textarea>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="category_id" class="form-label">Category:</label>
-                        <select name="category_id" id="category_id" class="form-select" required>
-                            @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                        </select>
                     </div>
 
                     <hr class="my-4">

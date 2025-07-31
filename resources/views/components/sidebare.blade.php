@@ -12,14 +12,17 @@
                              <i class="fas fa-chart-bar"></i>Dashboard</a>
                      </li>
                      <li>
-                         <a href="{{route('houses')}}">
+                         <a href="{{route('houses.index')}}">
                              <i class="fas fa-chart-bar"></i>Houses</a>
                      </li>
                      <li>
-                         <a href="{{route('services')}}">
+                         <a href="{{route('services.index')}}">
                              <i class="fas fa-chart-bar"></i>Services</a>
                      </li>
-
+                     <li>
+                         <a href="{{route('categories.index')}}">
+                             <i class="fas fa-chart-bar"></i>Categories</a>
+                     </li>
                  </ul>
              </nav>
          </div>

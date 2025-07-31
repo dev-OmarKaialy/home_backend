@@ -9,7 +9,7 @@
         <div class="page-container">
             @include('components.header-desktop')
 
-            <div class="container py-5">
+            <div class="container py-5" style="margin-top: 50px;">
                 <h2 class="mb-4 text-center">Create New House</h2>
 
                 <form action="{{ route('houses.store') }}" method="POST" enctype="multipart/form-data" class="card p-4 shadow-sm">
