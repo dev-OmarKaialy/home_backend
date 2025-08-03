@@ -20,7 +20,7 @@
                              <i class="fas fa-chart-bar"></i>Wallet</a>
                      </li>
                      <li>
-                         <a href="{{route('services.index')}}">
+                         <a href="{{route('orders.index')}}">
                              <i class="fas fa-chart-bar"></i>Orders</a>
                      </li>
                      <li>
