@@ -44,7 +44,7 @@
         .table td,
         .table th {
             vertical-align: middle;
-            padding: 12px 30px;
+            padding: 12px 40px;
             color: #333;
         }
 

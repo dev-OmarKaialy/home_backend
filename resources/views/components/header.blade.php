@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" media="all">
     <link rel="stylesheet" href="{{ asset('js/app.js') }}" media="all">
     <link rel="stylesheet" href="{{ asset('js/bootstrap.js') }}" media="all">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <!-- ✅ Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap-5.3.7.min.css') }}" media="all">
