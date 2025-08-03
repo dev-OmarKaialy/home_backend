@@ -16,8 +16,8 @@
                              <i class="fas fa-chart-bar"></i>Houses</a>
                      </li>
                      <li>
-                         <a href="{{route('services.index')}}">
-                             <i class="fas fa-chart-bar"></i>Wallet</a>
+                         <a href="{{route('wallets.index')}}">
+                             <i class="fas fa-chart-bar"></i>Wallet Transactions</a>
                      </li>
                      <li>
                          <a href="{{route('orders.index')}}">

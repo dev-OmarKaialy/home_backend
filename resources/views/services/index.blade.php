@@ -122,7 +122,7 @@
                                             <a href="{{ route('services.edit', $service->id) }}" class="btn btn-sm btn-outline-primary" data-toggle="tooltip" title="Edit">
                                                 <i class="zmdi zmdi-edit">Edit</i>
                                             </a>
-                                            <form method="POST" action="{{ route('services.delete', $service->id) }}" onsubmit="return confirm('Are you sure?')">
+                                            <form method="POST" action="{{ route('services.destroy', $service->id) }}" onsubmit="return confirm('Are you sure?')">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-outline-danger" data-toggle="tooltip" title="Delete">
