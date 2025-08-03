@@ -1,7 +1,7 @@
      <aside class="menu-sidebar d-none d-lg-block">
          <div class="logo">
-             <a href="#">
-                 <img src="images/icon/logo.png" alt="Cool Admin" />
+             <a href="{{route('dashboard')}}">
+                 <h4> Dream House </h4>
              </a>
          </div>
          <div class="menu-sidebar__content js-scrollbar1">
@@ -17,11 +17,23 @@
                      </li>
                      <li>
                          <a href="{{route('services.index')}}">
+                             <i class="fas fa-chart-bar"></i>Wallet</a>
+                     </li>
+                     <li>
+                         <a href="{{route('services.index')}}">
+                             <i class="fas fa-chart-bar"></i>Orders</a>
+                     </li>
+                     <li>
+                         <a href="{{route('services.index')}}">
                              <i class="fas fa-chart-bar"></i>Services</a>
                      </li>
                      <li>
                          <a href="{{route('categories.index')}}">
                              <i class="fas fa-chart-bar"></i>Categories</a>
+                     </li>
+                     <li>
+                         <a href="{{route('admin.join_requests.index')}}">
+                             <i class="fas fa-chart-bar"></i>Join Requests</a>
                      </li>
                  </ul>
              </nav>

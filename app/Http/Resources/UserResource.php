@@ -15,7 +15,8 @@ class UserResource extends JsonResource
     public function toArray(Request $request)
     {
         return
-            ['id' => $this->id,
+            [
+                'id' => $this->id,
                 'user_name' => $this->username,
                 'full_name' => $this->name,
                 'phone' => $this->phone,
@@ -23,6 +24,7 @@ class UserResource extends JsonResource
                 'token' => $this->token,
                 'image'    => $this->getFirstMediaUrl('customers') ?: null, // إذا ما فيه صورة يرجع null
                 'address' => $this->address,
+                'type' => $this->type,
             ];
     }
 }
