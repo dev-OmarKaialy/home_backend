@@ -1,5 +1,11 @@
 <aside class="menu-sidebar d-none d-lg-block">
-    <div class="logo">
+    <style>
+        .menu-sidebar i,
+        h4 {
+            color: #244F76 !important;
+        }
+    </style>
+    <div class="logo" style="height: 60px;">
         <a href="{{ route('dashboard') }}">
             <h4> Dream House </h4>
         </a>

@@ -147,7 +147,7 @@
                                             <a href="{{ route('houses.edit', $house->id) }}" class="btn btn-sm btn-outline-primary" data-toggle="tooltip" title="Edit">
                                                 <i class="zmdi zmdi-edit">Edit</i>
                                             </a>
-                                            <form method="POST" action="{{ route('houses.delete', $house->id) }}" onsubmit="return confirm('Are you sure?')">
+                                            <form method="POST" action="{{ route('houses.destroy', $house->id) }}" onsubmit="return confirm('Are you sure?')">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-outline-danger" data-toggle="tooltip" title="Delete">
