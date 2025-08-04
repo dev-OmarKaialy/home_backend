@@ -33,7 +33,7 @@
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="icon">
-                                                <i class="zmdi zmdi-account-o"></i>
+                                                <i class="fas fa-home"></i>
                                             </div>
                                             <div class="text">
                                                 <h2>{{$houses}}</h2>
@@ -51,7 +51,7 @@
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="icon">
-                                                <i class="zmdi zmdi-shopping-cart"></i>
+                                                <i class="fas fa-concierge-bell"></i>
                                             </div>
                                             <div class="text">
                                                 <h2>{{$services}}</h2>
@@ -69,7 +69,7 @@
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="icon">
-                                                <i class="zmdi zmdi-calendar-note"></i>
+                                                <i class="fas fa-user-plus"></i>
                                             </div>
                                             <div class="text">
                                                 <h2>{{$join}}</h2>
@@ -87,7 +87,7 @@
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="icon">
-                                                <i class="zmdi zmdi-money"></i>
+                                                <i class="fas fa-money-bill-wave"></i>
                                             </div>
                                             <div class="text">
                                                 <h2>{{$orders}}</h2>
@@ -102,45 +102,42 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6">
-                                <div class="au-card recent-report">
-                                    <div class="au-card-inner">
-                                        <h3 class="title-2">recent reports</h3>
-                                        <div class="chart-info">
-                                            <div class="chart-info__right">
-                                                <div class="chart-statis">
-                                                    <span class="index incre">
-                                                        <i class="zmdi zmdi-long-arrow-up"></i>25%</span>
-                                                    <span class="label">products</span>
-                                                </div>
-                                                <div class="chart-statis me-0">
-                                                    <span class="index decre">
-                                                        <i class="zmdi zmdi-long-arrow-down"></i>10%</span>
-                                                    <span class="label">services</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="recent-report__chart">
-                                            <canvas id="recent-rep-chart"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="au-card chart-percent-card">
-                                    <div class="au-card-inner">
-                                        <h3 class="title-2 tm-b-5">Revenue Distribution</h3>
-                                        <div class="row no-gutters">
-                                            <div class="col-xl-12">
-                                                <div class="percent-chart">
-                                                    <canvas id="percent-chart"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="col-lg-9">
+                                <h2 class="title-1 m-b-25">Last Orders</h2>
+                                <div class="table-responsive table--no-card m-b-40">
+                                    <table class="table table-borderless table-striped table-earning">
+                                        <thead>
+                                            <tr>
+                                                <th>User</th>
+                                                <th>Service Provider</th>
+                                                <th>House</th>
+                                                <th>Status</th>
+                                                <th>Payment</th>
+                                                <th>Service Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($lastOrders as $order)
+                                            <tr>
+                                                <td>{{ $order->user->name ?? '-' }}</td>
+                                                <td>{{ $order->serviceProviders->name ?? '-' }}</td>
+                                                <td>{{ $order->house->title ?? '-' }}</td>
+                                                <td><span class="badge {{ $order->status }}">{{ $order->status }}</span></td>
+                                                <td><span class="badge {{ $order->payment_status }}">{{ $order->payment_status }}</span></td>
+                                                <td>{{ $order->service_date }}</td>
+                                            </tr>
+                                            @empty
+                                            <tr>
+                                                <td colspan="6" class="text-center text-muted">No orders here yet</td>
+                                            </tr>
+                                            @endforelse
+                                        </tbody>
+
+                                    </table>
                                 </div>
                             </div>
                         </div>
+
 
                         <div class="row">
                             <div class="col-md-12">
@@ -159,6 +156,83 @@
     </div>
 
     @include('components.js-script')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const recentRepChart = document.getElementById('recent-rep-chart').getContext('2d');
+        new Chart(recentRepChart, {
+            type: 'bar',
+            data: {
+                labels: ['Houses', 'Services'],
+                datasets: [{
+                    label: 'Count',
+                    data: [{
+                        {
+                            $houses
+                        }
+                    }, {
+                        {
+                            $services
+                        }
+                    }],
+                    backgroundColor: ['#244f76', '#52859e'],
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Houses vs Services'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+
+        const percentChart = document.getElementById('percent-chart').getContext('2d');
+        new Chart(percentChart, {
+            type: 'doughnut',
+            data: {
+                labels: ['Orders', 'Join Requests'],
+                datasets: [{
+                    label: 'Distribution',
+                    data: [{
+                        {
+                            $orders
+                        }
+                    }, {
+                        {
+                            $join
+                        }
+                    }],
+                    backgroundColor: ['#9ad0c2', '#ebf3d5'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Orders vs Join Requests'
+                    }
+                }
+            }
+        });
+    </script>
 
 </body>
 

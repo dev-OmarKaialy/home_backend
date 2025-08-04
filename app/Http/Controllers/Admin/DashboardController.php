@@ -20,8 +20,9 @@ class DashboardController extends Controller
         $orders = Order::count();
         $services = Service::count();
         $join = JoinRequest::count();
+        $lastOrders = Order::latest('created_at')->take(5)->get();
 
 
-        return view('dashboard', compact('houses', 'orders', 'services', 'join'));
+        return view('dashboard', compact('houses', 'orders', 'services', 'join', 'lastOrders'));
     }
 }
