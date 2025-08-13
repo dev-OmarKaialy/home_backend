@@ -21,24 +21,23 @@
 
                     <div class="mb-3">
                         <label for="description" class="form-label">Description:</label>
-                        <textarea name="description" id="description" rows="4" class="form-control"></textarea>
+                        <textarea name="description" id="description" rows="4" class="form-control" required></textarea>
                     </div>
-
 
                     <div class="mb-3">
                         <label class="form-label d-block">Address:</label>
                         <div class="row g-2">
                             <div class="col-md-3">
-                                <input type="text" name="city" class="form-control" placeholder="City">
+                                <input type="text" name="city" class="form-control" placeholder="City" required>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" name="region" class="form-control" placeholder="Region">
+                                <input type="text" name="region" class="form-control" placeholder="Region" required>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" name="street" class="form-control" placeholder="Street">
+                                <input type="text" name="street" class="form-control" placeholder="Street" required>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" name="building" class="form-control" placeholder="Building">
+                                <input type="text" name="building" class="form-control" placeholder="Building" required>
                             </div>
                         </div>
                     </div>
@@ -50,7 +49,8 @@
 
                     <div class="mb-3">
                         <label for="status" class="form-label">Status:</label>
-                        <select name="status" id="status" class="form-select">
+                        <select name="status" id="status" class="form-select" required>
+                            <option value="" disabled selected>Select status</option>
                             <option value="sale">Sale</option>
                             <option value="rent">Rent</option>
                         </select>
@@ -60,7 +60,7 @@
 
                     <div class="mb-4">
                         <label for="images" class="form-label">Upload New Image:</label>
-                        <input type="file" name="image" id="images" class="form-control" multiple>
+                        <input type="file" name="image" id="images" class="form-control" required>
                         <small class="text-muted">Select one file.</small>
                     </div>
 
@@ -68,6 +68,7 @@
                         <button type="submit" class="btn btn-primary px-4">Create</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>

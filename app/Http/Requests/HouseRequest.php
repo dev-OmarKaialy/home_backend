@@ -24,14 +24,14 @@ class HouseRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'price' => 'required|numeric|min:0',
+            'price' => 'required|numeric|min:0.1',
             'status' => 'required|in:sale,rent', // Example: status must be 'sale' or 'rent'
-            'period' => 'nullable|integer|min:1',
+            'period' => 'required|integer|min:1',
             'city' => 'required|string|max:255',
-            'region' => 'nullable|string|max:255',
-            'street' => 'nullable|string|max:255',
-            'building' => 'nullable|string|max:255',
-            'service_date' => 'nullable|date_format:Y-m-d H:i:s'
+            'region' => 'required|string|max:255',
+            'street' => 'required|string|max:255',
+            'building' => 'required|string|max:255',
+            'service_date' => 'required|date_format:Y-m-d H:i:s'
         ];
     }
 }
