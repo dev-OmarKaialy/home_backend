@@ -73,6 +73,10 @@
                                 background-color: #28a745;
                             }
 
+                            .badge-unavailable {
+                                background-color: #a72828ff;
+                            }
+
                             .table-data {
                                 height: 480px;
                             }
@@ -132,10 +136,19 @@
 
                                     <td>${{ number_format($house->price, 2) }}</td>
                                     <td>
-                                        <span class="badge badge-{{ $house->status === 'rent' ? 'rent' : 'sell' }}">
+                                        @php
+                                        $statusClass = match($house->status) {
+                                        'rent' => 'rent',
+                                        'sale' => 'sell',
+                                        'unavailable' => 'unavailable',
+                                        default => 'light',
+                                        };
+                                        @endphp
+                                        <span class="badge badge-{{ $statusClass }}">
                                             {{ ucfirst($house->status) }}
                                         </span>
                                     </td>
+
                                     <td>
                                         {{ $house->views_count }}
                                     </td>

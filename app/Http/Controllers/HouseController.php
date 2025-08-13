@@ -48,16 +48,15 @@ class HouseController extends Controller
      */
     public function store(HouseRequest $request)
     {
-        // Use DB transaction to ensure atomicity
         DB::beginTransaction();
 
         $imageService = new ImageService();
         $validatedData = $request->validated();
-        $validatedData['user_id'] = Auth::user()->id;
-        // Create the house
+        $validatedData['user_id'] = Auth::id();
+
         $house = House::create($validatedData);
 
-        // Create the related address
+        // إنشاء العنوان
         $house->address()->create([
             'city'     => $validatedData['city'],
             'region'   => $validatedData['region'] ?? null,
@@ -65,10 +64,12 @@ class HouseController extends Controller
             'building' => $validatedData['building'] ?? null,
         ]);
 
-        // Handle image upload if present
-        if ($request->hasFile('image')) {
-            $imageService->storeImage($house, $request->file('image'), 'houses');
-            $house->refresh(); // Refresh model to include media
+        // رفع عدة صور
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $house->addMedia($image)->toMediaCollection('houses');
+            }
+            $house->refresh();
         }
 
         DB::commit();

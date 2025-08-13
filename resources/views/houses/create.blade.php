@@ -11,6 +11,16 @@
 
             <div class="container py-5" style="margin-top: 50px;">
                 <h2 class="mb-4 text-center">Create New House</h2>
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <strong>Oops! Something went wrong:</strong>
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
 
                 <form action="{{ route('houses.store') }}" method="POST" enctype="multipart/form-data" class="card p-4 shadow-sm">
                     @csrf
@@ -22,6 +32,19 @@
                     <div class="mb-3">
                         <label for="description" class="form-label">Description:</label>
                         <textarea name="description" id="description" rows="4" class="form-control" required></textarea>
+                    </div>
+
+                    {{-- Owner fields --}}
+                    <div class="mb-3">
+                        <label class="form-label d-block">Owner Information:</label>
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <input type="text" name="owner_name" class="form-control" placeholder="Owner Name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="owner_phone" class="form-control" placeholder="Owner Phone" required>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="mb-3">
@@ -44,7 +67,7 @@
 
                     <div class="mb-3">
                         <label for="price" class="form-label">Price ($):</label>
-                        <input type="number" name="price" id="price" class="form-control" step="0.01" required>
+                        <input type="number" name="price" id="price" class="form-control" min="1" step="1" required>
                     </div>
 
                     <div class="mb-3">
@@ -53,15 +76,16 @@
                             <option value="" disabled selected>Select status</option>
                             <option value="sale">Sale</option>
                             <option value="rent">Rent</option>
+                            <option value="unavailable">Unavailable</option>
                         </select>
                     </div>
 
                     <hr class="my-4">
 
                     <div class="mb-4">
-                        <label for="images" class="form-label">Upload New Image:</label>
-                        <input type="file" name="image" id="images" class="form-control" required>
-                        <small class="text-muted">Select one file.</small>
+                        <label for="images" class="form-label">Upload Images:</label>
+                        <input type="file" name="images[]" id="images" class="form-control" multiple required>
+                        <small class="text-muted">You can select multiple images.</small>
                     </div>
 
                     <div class="text-end">

@@ -14,6 +14,23 @@
             align-items: center;
             margin-bottom: 20px;
         }
+
+        .house-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .house-images img {
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .house-info p {
+            margin-bottom: 5px;
+        }
     </style>
 
     <div class="page-wrapper">
@@ -40,29 +57,19 @@
                     </a>
                 </div>
 
-                <div class="row row-cols-2 row-cols-md-3 g-3 mb-4">
+                {{-- عرض صور المنزل --}}
+                <div class="house-images mb-4">
                     @forelse ($house->getMedia('houses') as $media)
-                    <div class="col">
-                        <div class="card border-0 shadow-sm">
-                            <img
-                                src="{{ $media->getUrl() }}"
-                                alt="House image"
-                                class="card-img-top rounded"
-                                style="object-fit: cover; height: 200px;">
-                        </div>
-                    </div>
+                    <img src="{{ $media->getUrl() }}" alt="House image">
                     @empty
-                    <div class="col">
-                        <p class="text-muted">No images available.</p>
-                    </div>
+                    <p class="text-muted">No images available.</p>
                     @endforelse
                 </div>
 
-                <div class="card p-4">
+                <div class="card p-4 house-info">
                     <h5>Description:</h5>
                     <p>{{ $house->description }}</p>
                     <hr>
-
 
                     @if($house->address)
                     <h5>Address:</h5>
@@ -74,6 +81,11 @@
                     </p>
                     <hr>
                     @endif
+
+                    <h5>Owner:</h5>
+                    <p>Name: {{ $house->owner_name }}</p>
+                    <p>Phone: {{ $house->owner_phone }}</p>
+                    <hr>
 
                     <h5>Price:</h5>
                     <p>{{ $house->price }} $</p>

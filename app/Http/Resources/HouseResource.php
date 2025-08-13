@@ -26,15 +26,17 @@ class HouseResource extends JsonResource
 
             // Related address
             'address' => new AddressResource($this->whenLoaded('address')),
-            'owner' => $this->whenLoaded('owner', function () {
-                return [
-                    'id' => $this->owner->id,
-                    'name' => $this->owner->name,
-                    'email' => $this->owner->email,
-                    'image_url' => $this->owner->getFirstMediaUrl('customers'),
-                    'phone' => $this->owner->phone
-                ];
-            }),
+            // 'owner' => $this->whenLoaded('owner', function () {
+            //     return [
+            //         'id' => $this->owner->id,
+            //         'name' => $this->owner->name,
+            //         'email' => $this->owner->email,
+            //         'image_url' => $this->owner->getFirstMediaUrl('customers'),
+            //         'phone' => $this->owner->phone
+            //     ];
+            // }),
+            'owner' => $this->owner_name,
+            'owner_phone' => $this->owner_phone,
         ];
     }
 }

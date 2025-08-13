@@ -25,13 +25,19 @@ class HouseRequest extends FormRequest
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric|min:0.1',
-            'status' => 'required|in:sale,rent', // Example: status must be 'sale' or 'rent'
-            'period' => 'required|integer|min:1',
+            'status' => 'required|in:sale,rent,unavailable',
+            'period' => 'nullable|integer|min:1',
             'city' => 'required|string|max:255',
             'region' => 'required|string|max:255',
             'street' => 'required|string|max:255',
             'building' => 'required|string|max:255',
-            'service_date' => 'required|date_format:Y-m-d H:i:s'
+            'service_date' => 'nullable|date_format:Y-m-d H:i:s',
+
+            'owner_name' => 'required|string|max:255',
+            'owner_phone' => 'required|string|regex:/^[0-9+\-\s]{8,20}$/',
+
+            'images' => 'required|array|min:1',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ];
     }
 }

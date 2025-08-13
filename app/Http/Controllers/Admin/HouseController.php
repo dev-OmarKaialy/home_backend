@@ -30,16 +30,14 @@ class HouseController extends Controller
 
     public function store(HouseRequest $request)
     {
-        // Use DB transaction to ensure atomicity
         DB::beginTransaction();
 
         $imageService = new ImageService();
         $validatedData = $request->validated();
-        $validatedData['user_id'] = Auth::user()->id ?? 1;
-        // Create the house
+        $validatedData['user_id'] = Auth::id() ?? 1;
+
         $house = House::create($validatedData);
 
-        // Create the related address
         $house->address()->create([
             'city'     => $validatedData['city'],
             'region'   => $validatedData['region'] ?? null,
@@ -47,16 +45,20 @@ class HouseController extends Controller
             'building' => $validatedData['building'] ?? null,
         ]);
 
-        // Handle image upload if present
-        if ($request->hasFile('image')) {
-            $imageService->storeImage($house, $request->file('image'), 'houses');
-            $house->refresh(); // Refresh model to include media
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $house->addMedia($image)->toMediaCollection('houses');
+            }
+            $house->refresh();
         }
 
         DB::commit();
 
-        return redirect()->route('houses.show', $house->id)->with('success', 'House created successfully!');
+        return redirect()
+            ->route('houses.show', $house->id)
+            ->with('success', 'House created successfully!');
     }
+
 
     public function show($id)
     {
@@ -73,16 +75,9 @@ class HouseController extends Controller
     public function update(HouseRequest $request, House $house)
     {
         $validated = $request->validated();
+        $validated['user_id'] = Auth::id() ?? 1;
 
-        $house->fill([
-            'title'       => $validated['title'],
-            'description' => $validated['description'],
-            'price'       => $validated['price'],
-            'status'      => $validated['status'],
-            'user_id'     => Auth::id() ?? 1,
-        ]);
-
-        $house->save();
+        $house->update($validated);
 
         $house->address()->updateOrCreate([], [
             'city'     => $validated['city'],
@@ -91,12 +86,16 @@ class HouseController extends Controller
             'building' => $validated['building'] ?? null,
         ]);
 
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('images')) {
             $house->clearMediaCollection('houses');
-            $house->addMediaFromRequest('image')->toMediaCollection('houses');
+            foreach ($request->file('images') as $image) {
+                $house->addMedia($image)->toMediaCollection('houses');
+            }
         }
 
-        return redirect()->route('houses.show', $house)->with('success', 'house uploaded successfully!');
+        return redirect()
+            ->route('houses.show', $house)
+            ->with('success', 'House updated successfully!');
     }
 
     public function delete($id)
