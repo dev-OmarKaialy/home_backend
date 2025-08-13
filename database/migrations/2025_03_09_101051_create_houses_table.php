@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->decimal('price', 12, 2);
-            $table->enum('status', ['unavailable', 'rent' ,'sale']);
+            $table->enum('status', ['unavailable', 'rent', 'sale']);
             $table->boolean('is_furnished')->default(false);
             $table->unsignedInteger('views_count')->default(0);
             $table->timestamps();

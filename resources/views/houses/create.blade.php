@@ -77,6 +77,7 @@
                             <option value="sale">Sale</option>
                             <option value="rent">Rent</option>
                             <option value="unavailable">Unavailable</option>
+                            <option value="available">Available</option>
                         </select>
                     </div>
 

@@ -77,6 +77,10 @@
                                 background-color: #a72828ff;
                             }
 
+                            .badge-available {
+                                background-color: #5507ffff;
+                            }
+
                             .table-data {
                                 height: 480px;
                             }
@@ -141,6 +145,7 @@
                                         'rent' => 'rent',
                                         'sale' => 'sell',
                                         'unavailable' => 'unavailable',
+                                        'available' => 'available',
                                         default => 'light',
                                         };
                                         @endphp

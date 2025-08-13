@@ -18,7 +18,7 @@ class HouseController extends Controller
      */
     public function index()
     {
-        $houses = House::where('status', '!=', 'unavailable')
+        $houses = House::where('status', 'available')
             ->orderBy('views_count', 'desc')
             ->paginate(10);
 

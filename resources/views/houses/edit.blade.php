@@ -82,6 +82,7 @@
                             <option value="sale" {{ $house->status == 'sale' ? 'selected' : '' }}>Sale</option>
                             <option value="rent" {{ $house->status == 'rent' ? 'selected' : '' }}>Rent</option>
                             <option value="unavailable" {{ $house->status == 'unavailable' ? 'selected' : '' }}>Unavailable</option>
+                            <option value="available" {{ $house->status == 'available' ? 'selected' : '' }}>available</option>
                         </select>
                     </div>
 
