@@ -35,6 +35,9 @@ class HouseRequest extends FormRequest
 
             'owner_name' => 'required|string|max:255',
             'owner_phone' => 'required|string|regex:/^[0-9+\-\(\)\s]{8,20}$/',
+            'rooms' => 'required|numeric',
+            'space' => 'required|numeric',
+            'directions' => 'required|string',
 
             'images' => 'nullable|array|min:1',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',

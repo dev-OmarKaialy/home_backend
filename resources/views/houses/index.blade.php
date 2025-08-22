@@ -105,6 +105,7 @@
                                     <th>Title</th>
                                     <th>Address</th>
                                     <th>Price</th>
+                                    <th>Details</th>
                                     <th>Status</th>
                                     <th>Views</th>
                                     <th>Actions</th>
@@ -139,6 +140,14 @@
                                     </td>
 
                                     <td>${{ number_format($house->price, 2) }}</td>
+                                    <td>
+                                        <div>
+                                            <strong>rooms number: {{ $house->rooms }}</strong><br>
+                                            <span>space: {{ $house->space }}</span><br>
+                                            <span>directions: {{ $house->directions }}</span><br>
+                                        </div>
+                                    </td>
+
                                     <td>
                                         @php
                                         $statusClass = match($house->status) {

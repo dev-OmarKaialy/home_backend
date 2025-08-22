@@ -50,6 +50,21 @@
                         </div>
                     </div>
 
+                    <div class="mb-3">
+                        <label class="form-label d-block">House Information:</label>
+                        <div class="row g-2">
+                            <div class="col-md-4">
+                                <input type="number" min="1" name="rooms" class="form-control" placeholder="Rooms Number" value="{{ old('rooms', $house->rooms) }}" required>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="number" min="1" name="space" class="form-control" placeholder="Space" value="{{ old('space', $house->space) }}" required>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="directions" class="form-control" placeholder="Directions" value="{{ old('directions', $house->directions) }}" required>
+                            </div>
+                        </div>
+                    </div>
+
                     {{-- Address --}}
                     <div class="mb-3">
                         <label class="form-label d-block">Address:</label>

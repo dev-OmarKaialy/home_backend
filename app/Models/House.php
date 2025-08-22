@@ -11,7 +11,7 @@ class House extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
-    protected $fillable = ['user_id', 'title', 'description', 'price', 'status', 'views_count', 'period', 'owner_name', 'owner_phone'];
+    protected $fillable = ['user_id', 'title', 'description', 'price', 'status', 'views_count', 'period', 'owner_name', 'owner_phone', 'directions', 'rooms', 'space'];
 
     public function address()
     {

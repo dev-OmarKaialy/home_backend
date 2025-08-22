@@ -87,6 +87,12 @@
                     <p>Phone: {{ $house->owner_phone }}</p>
                     <hr>
 
+                    <h5>House Details:</h5>
+                    <p>Rooms Number: {{ $house->rooms }}</p>
+                    <p>Space: {{ $house->space }}</p>
+                    <p>Directions: {{ $house->directions }}</p>
+                    <hr>
+
                     <h5>Price:</h5>
                     <p>{{ $house->price }} $</p>
                     <hr>
