@@ -39,6 +39,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('providers.index') }}">
+                        <i class="fas fa-user-tie"></i> Providers
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('categories.index') }}">
                         <i class="fas fa-th-large"></i>Categories
                     </a>

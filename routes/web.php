@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\HouseController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\JoinRequestController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ProviderController;
 use App\Http\Controllers\Admin\WalletController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,7 @@ Route::middleware(['web', 'auth:web'])->group(function () {
 
     Route::resource('houses', HouseController::class);
     Route::resource('services', ServiceController::class);
+    Route::resource('providers', ProviderController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('orders', OrderController::class);
     Route::put('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
