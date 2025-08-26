@@ -137,15 +137,25 @@ class ServiceController extends Controller implements HasMiddleware
             ->when($request->filled('hourly_rate'), function ($q) use ($request) {
                 $q->where('hourly_rate', '=', $request->hourly_rate);
             })
-            ->when($request->filled('service_date'), function ($q) use ($request) {
-                $q->whereDoesntHave('serviceOrders', function ($q2) use ($request) {
-                    $q2->whereDate('service_date', $request->service_date);
+            ->when($request->filled(['start_date', 'end_date']), function ($q) use ($request) {
+                $startDate = $request->start_date;
+                $endDate   = $request->end_date;
+
+                $q->where(function ($q2) use ($startDate, $endDate) {
+                    $q2->whereNull('start_date')
+                        ->orWhereNull('end_date')
+                        ->orWhere(function ($q3) use ($startDate, $endDate) {
+                            $q3->where('end_date', '<', $startDate)
+                                ->orWhere('start_date', '>', $endDate);
+                        });
                 });
             });
 
         $providers = $query->get();
-        return ApiResponse::success(ServiceProviderResource::collection($providers),200);
+
+        return ApiResponse::success(ServiceProviderResource::collection($providers), 200);
     }
+
 
     public function destroy(Service $service)
     {

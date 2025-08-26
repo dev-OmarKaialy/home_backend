@@ -52,9 +52,15 @@
             <div class="container mt-4" style="padding-top: 70px;">
                 <div class="header-with-button">
                     <h2 class="mb-0">{{ $house->title }}</h2>
-                    <a href="{{ route('houses.edit', $house) }}" class="btn btn-primary">
-                        <i class="zmdi zmdi-edit"></i> Edit
-                    </a>
+                    <div>
+                        <a href="{{ route('houses.edit', $house) }}" class="btn btn-primary">
+                            <i class="zmdi zmdi-edit"></i> Edit
+                        </a>
+                        <a href="{{ route('house.pdf', $house->id) }}" class="btn btn-primary" target="_blank">
+                            Print PDF
+                        </a>
+
+                    </div>
                 </div>
 
                 {{-- عرض صور المنزل --}}

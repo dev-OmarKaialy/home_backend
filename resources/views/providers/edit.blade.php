@@ -55,6 +55,18 @@
                         <label for="hourly_rate" class="form-label">Hourly Rate ($):</label>
                         <input type="number" name="hourly_rate" id="hourly_rate" class="form-control" value="{{ old('hourly_rate', $provider->hourly_rate) }}" step="0.01">
                     </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="start_date" class="form-label">Start Date:</label>
+                            <input type="date" name="start_date" id="start_date" class="form-control"
+                                value="{{ old('start_date', $provider->start_date}}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="end_date" class="form-label">End Date:</label>
+                            <input type="date" name="end_date" id="end_date" class="form-control"
+                                value="{{ old('end_date', $provider->end_date }}">
+                        </div>
+                    </div>
 
                     <div class="mb-3">
                         <label for="status" class="form-label">Status:</label>

@@ -31,6 +31,8 @@ class ProviderRequest extends FormRequest
             'service_id' => 'nullable|exists:services,id',
             'profile_photo_path' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'status' => 'nullable|string',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
         ];
     }
 }

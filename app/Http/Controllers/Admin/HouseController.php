@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\HouseRequest;
 use App\Models\House;
 use App\Services\ImageService;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -109,5 +110,23 @@ class HouseController extends Controller
         $house->delete();
 
         return redirect()->back()->with('house deleted successfully!');
+    }
+
+    public function generatePdf($id)
+    {
+        $house = House::findOrFail($id);
+
+        $pdf = Pdf::loadView('houses.pdf', compact('house'));
+        $filePath = 'house-' . $house->id . '.pdf';
+        $pdf->save(storage_path('app/public/' . $filePath));
+
+        return redirect()->route('house.print', ['file' => $filePath]);
+    }
+
+    public function printPdf(Request $request)
+    {
+        $filePath = storage_path('app/public/' . $request->file);
+
+        return response()->file($filePath);
     }
 }

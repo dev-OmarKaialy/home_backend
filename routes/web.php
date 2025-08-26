@@ -29,6 +29,9 @@ Route::middleware(['web', 'auth:web'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('houses', HouseController::class);
+    Route::get('/house/{id}/pdf', [HouseController::class, 'generatePdf'])->name('house.pdf');
+    Route::get('/house/print', [HouseController::class, 'printPdf'])->name('house.print');
+
     Route::resource('services', ServiceController::class);
     Route::resource('providers', ProviderController::class);
     Route::resource('categories', CategoryController::class);
