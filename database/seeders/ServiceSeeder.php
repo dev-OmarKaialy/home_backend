@@ -24,18 +24,18 @@ class ServiceSeeder extends Seeder
                 'category_id' => $service['category_id'],
                 'description' => $service['description']
             ]);
- // تحديد المسار الصحيح للصورة في public/images
- $imagePath = public_path("images/{$service['image']}");
+            // تحديد المسار الصحيح للصورة في public/images
+            $imagePath = public_path("images/{$service['image']}");
 
- // تحقق من وجود الصورة قبل إضافتها
- if (file_exists($imagePath)) {
-     // إضافة الصورة إلى خدمة جديدة
-     $newService
-         ->addMedia($imagePath)
-         ->preservingOriginal()
-         ->toMediaCollection('services', 'custom_disk');
- }
+            // تحقق من وجود الصورة قبل إضافتها
+            if (file_exists($imagePath)) {
+                // إضافة الصورة إلى خدمة جديدة
+                $newService
+                    ->addMedia($imagePath)
+                    ->preservingOriginal()
+                    ->toMediaCollection('services', 'custom_disk');
+            }
         }
-     $this->call(ServiceProviderSeeder::class);
+        $this->call(ServiceProviderSeeder::class);
     }
 }

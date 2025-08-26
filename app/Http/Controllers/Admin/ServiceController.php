@@ -9,11 +9,29 @@ use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $services = Service::paginate(5);
+        $query = Service::with(['category', 'serviceProviders']);
 
-        return view('services.index', compact('services'));
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        if ($request->filled('hourly_rate')) {
+            $query->whereHas('serviceProviders', function ($q) use ($request) {
+                $q->where('hourly_rate', '<=', $request->hourly_rate);
+            });
+        }
+
+        $services = $query->latest()->paginate(10);
+
+        $categories = Category::all();
+
+        return view('services.index', compact('services', 'categories'));
     }
 
     public function create()

@@ -12,7 +12,7 @@ class ProviderController extends Controller
 {
     public function index()
     {
-        $providers = User::where('type', 'provider')->paginate(10);
+        $providers = User::paginate(10);
         return view('providers.index', compact('providers'));
     }
 

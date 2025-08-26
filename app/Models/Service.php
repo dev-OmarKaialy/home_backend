@@ -10,9 +10,9 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class Service extends Model implements HasMedia
 {
     //
-    use HasFactory,InteractsWithMedia;
+    use HasFactory, InteractsWithMedia;
 
-    protected $fillable = ['name', 'category_id', 'description','orders_count'];
+    protected $fillable = ['name', 'category_id', 'description', 'orders_count'];
 
     // Inverse of one to many relationship
     public function category()

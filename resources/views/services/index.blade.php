@@ -44,6 +44,44 @@
                         </a>
                     </div>
 
+                    {{-- Search Form Below --}}
+                    <form method="GET" action="{{ route('services.index') }}" class="card p-3 mb-4 shadow-sm" style="margin: 0px 40px;">
+                        <div class="row g-3 align-items-end">
+
+                            {{-- Service Name --}}
+                            <div class="col-md-4">
+                                <label for="name" class="form-label">Service Name</label>
+                                <input type="text" name="name" id="name" value="{{ request('name') }}" class="form-control" placeholder="Search by service name...">
+                            </div>
+
+                            {{-- Category --}}
+                            <div class="col-md-4">
+                                <label for="category_id" class="form-label">Category</label>
+                                <select name="category_id" id="category_id" class="form-control">
+                                    <option value="">Select category</option>
+                                    @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            {{-- Hourly Rate --}}
+                            <div class="col-md-4">
+                                <label for="hourly_rate" class="form-label">Max Hourly Rate ($)</label>
+                                <input type="number" name="hourly_rate" id="hourly_rate" value="{{ request('hourly_rate') }}" class="form-control" placeholder="e.g. 50">
+                            </div>
+
+                        </div>
+
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                            <a href="{{ route('services.index') }}" class="btn btn-secondary">Reset</a>
+                        </div>
+                    </form>
+
+
                     <div class="table-responsive table-data">
                         <style>
                             .table td,
@@ -96,6 +134,7 @@
                                 <tr>
                                     <th>Title</th>
                                     <th>Category</th>
+                                    <th>Provider</th>
                                     <th>Orders Count</th>
                                     <th>Actions</th>
                                 </tr>
@@ -111,6 +150,11 @@
                                     </td>
 
                                     <td>{{ $service->category->name }}</td>
+                                    <td>
+                                        @foreach($service->serviceProviders as $provider)
+                                        {{ $provider->name }}<br>
+                                        @endforeach
+                                    </td>
                                     <td>
                                         {{ $service->orders_count }}
                                     </td>
