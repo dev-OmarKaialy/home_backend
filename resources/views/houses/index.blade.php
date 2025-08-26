@@ -44,6 +44,39 @@
                         </a>
                     </div>
 
+                    <!-- Search Form -->
+                    <form action="{{ route('houses.index') }}" method="GET" class="card p-3 mb-4 shadow-sm" style="margin: 0px 40px;">
+                        <div class="row g-3 align-items-end">
+                            <div class="col-md-4">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" name="address" id="address" class="form-control"
+                                    value="{{ request('address') }}" placeholder="Search by address">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="rooms" class="form-label">Rooms</label>
+                                <input type="number" name="rooms" id="rooms" class="form-control"
+                                    value="{{ request('rooms') }}" placeholder="No. of rooms">
+                            </div>
+
+                            <div class="col-md-3">
+                                <label for="price" class="form-label">Max Price</label>
+                                <input type="number" name="price" id="price" class="form-control"
+                                    value="{{ request('price') }}" placeholder="Enter maximum price">
+                            </div>
+
+                            <div class="col-md-3 text-end">
+                                <button type="submit" class="btn btn-primary mt-2">
+                                    <i class="zmdi zmdi-search"></i> Search
+                                </button>
+                                <a href="{{ route('houses.index') }}" class="btn btn-secondary mt-2">
+                                    Reset
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+
+
                     <div class="table-responsive table-data">
                         <style>
                             .table td,

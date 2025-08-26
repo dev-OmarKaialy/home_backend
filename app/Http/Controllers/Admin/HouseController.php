@@ -13,16 +13,35 @@ use Illuminate\Support\Facades\DB;
 
 class HouseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $houses = House::where('status', '!=', 'unavailable')
+        $query = House::where('status', '!=', 'unavailable')
             ->with('address')
-            ->orderBy('views_count', 'desc')
-            ->paginate(10);
+            ->orderBy('views_count', 'desc');
 
-        // Paginated response for infinite scroll support in frontend apps
+        if ($request->filled('address')) {
+            $address = $request->address;
+            $query->whereHas('address', function ($q) use ($address) {
+                $q->where('city', 'like', "%{$address}%")
+                    ->orWhere('region', 'like', "%{$address}%")
+                    ->orWhere('street', 'like', "%{$address}%");
+            });
+        }
+
+        if ($request->filled('rooms')) {
+            $query->where('rooms', $request->rooms);
+        }
+
+        if ($request->filled('price')) {
+            $query->where('price', '<=', $request->price);
+        }
+
+        $houses = $query->paginate(10)->withQueryString();
+
         return view('houses.index', compact('houses'));
     }
+
+
 
     public function create()
     {

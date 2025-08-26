@@ -32,6 +32,7 @@ class HouseSeeder extends Seeder
                 'status' => $status,
                 'owner_name' => "owner name",
                 'owner_phone' => "123456789",
+                'rooms' => rand(2, 11),
             ]);
 
             // عنوان البيت
