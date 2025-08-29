@@ -15,9 +15,7 @@ class HouseController extends Controller
 {
     public function index(Request $request)
     {
-        $query = House::where('status', '!=', 'unavailable')
-            ->with('address')
-            ->orderBy('views_count', 'desc');
+        $query = House::with('address')->latest();
 
         if ($request->filled('address')) {
             $address = $request->address;
@@ -36,7 +34,7 @@ class HouseController extends Controller
             $query->where('price', '<=', $request->price);
         }
 
-        $houses = $query->paginate(10)->withQueryString();
+        $houses = $query->paginate(15)->withQueryString();
 
         return view('houses.index', compact('houses'));
     }

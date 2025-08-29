@@ -131,7 +131,9 @@
                                 display: inline;
                             }
                         </style>
-
+                        <div class="d-flex justify-content-center mb-3">
+                            {{ $houses->links('pagination::bootstrap-4') }}
+                        </div>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -221,11 +223,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-
-
-                    </div>
-                    <div class="user-data__footer d-flex justify-content-center">
-                        {{ $houses->links('pagination::bootstrap-4') }}
                     </div>
                 </div>
                 <!-- END USER DATA-->
