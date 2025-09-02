@@ -28,7 +28,6 @@ class ServiceProviderResource extends JsonResource
             'works' => $this->getMedia('works')->pluck('original_url'),
             'image'    => $this->getFirstMediaUrl('service providers') ?: null,
             'address' => new AddressResource($this->address),
-
         ];
     }
 }

@@ -45,19 +45,19 @@ class ProviderController extends Controller
 
     public function show($id)
     {
-        $provider = User::where('type', 'provider')->findOrFail($id);
+        $provider = User::findOrFail($id);
         return view('providers.show', compact('provider'));
     }
 
     public function edit($id)
     {
-        $provider = User::where('type', 'provider')->findOrFail($id);
+        $provider = User::findOrFail($id);
         return view('providers.edit', compact('provider'));
     }
 
     public function update(ProviderRequest $request, $id)
     {
-        $provider = User::where('type', 'provider')->findOrFail($id);
+        $provider = User::findOrFail($id);
 
         $data = $request->validated();
 

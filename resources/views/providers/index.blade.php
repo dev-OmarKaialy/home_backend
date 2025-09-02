@@ -107,7 +107,7 @@
                                             <a href="{{ route('providers.show', $provider->id) }}" class="btn btn-sm btn-primary">
                                                 View
                                             </a>
-                                            <a href="{{ route('providers.edit', $provider->id) }}" class="btn btn-sm btn-outline-primary" title="Edit">
+                                            <a href="{{ route('providers.edit', $provider->id) }}" class="btn btn-sm btn-outline-primary">
                                                 <i class="zmdi zmdi-edit"> Edit</i>
                                             </a>
                                             <form method="POST" action="{{ route('providers.destroy', $provider->id) }}" onsubmit="return confirm('Are you sure?')">
