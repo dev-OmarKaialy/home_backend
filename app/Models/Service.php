@@ -24,4 +24,8 @@ class Service extends Model implements HasMedia
     {
         return $this->hasMany(User::class);
     }
+    public function provider()
+    {
+        return $this->hasOne(User::class);
+    }
 }

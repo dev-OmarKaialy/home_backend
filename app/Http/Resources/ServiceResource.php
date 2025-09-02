@@ -16,6 +16,7 @@ class ServiceResource extends JsonResource
             'description' => $this->description,
             'image_url' => $this->getFirstMediaUrl('services'),
             'serviceProviders' => ServiceProviderResource::collection($this->whenLoaded('serviceProviders')),
+            'provider'         => $this->provider,
         ];
     }
 }

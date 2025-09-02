@@ -22,6 +22,7 @@ class ProviderResource extends JsonResource
             'phone' => $this->phone,
             'hourly_rate' => $this->hourly_rate,
             'service_id' => $this->service_id,
+            'category_id' => $this->category_id,
             'profile_photo_url' => $this->profile_photo_path ? asset('storage/' . $this->profile_photo_path) : null,
             'status' => $this->status,
             'type' => $this->type,
