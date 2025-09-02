@@ -2,12 +2,6 @@
 
 <body>
     <style>
-        body,
-        html {
-            height: 100%;
-            overflow-x: hidden;
-        }
-
         .header-with-button {
             display: flex;
             justify-content: space-between;
