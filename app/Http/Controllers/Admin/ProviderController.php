@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProviderRequest;
 use App\Http\Resources\ProviderResource;
+use App\Models\Category;
+use App\Models\Service;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -18,7 +20,9 @@ class ProviderController extends Controller
 
     public function create()
     {
-        return view('providers.create');
+        $services = Service::all();
+        $categories = Category::all();
+        return view('providers.create', compact(['services', 'categories']));
     }
 
     public function store(ProviderRequest $request)
@@ -51,8 +55,10 @@ class ProviderController extends Controller
 
     public function edit($id)
     {
+        $services = Service::all();
+        $categories = Category::all();
         $provider = User::findOrFail($id);
-        return view('providers.edit', compact('provider'));
+        return view('providers.edit', compact(['provider', 'services', 'categories']));
     }
 
     public function update(ProviderRequest $request, $id)

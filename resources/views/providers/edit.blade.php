@@ -55,6 +55,28 @@
                         <label for="hourly_rate" class="form-label">Hourly Rate ($):</label>
                         <input type="number" name="hourly_rate" id="hourly_rate" class="form-control" value="{{ old('hourly_rate', $provider->hourly_rate) }}" step="0.01">
                     </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="service_id" class="form-label">Service:</label>
+                            <select name="service_id" id="service_id" class="form-select" required>
+                                @foreach ($services as $service)
+                                <option value="{{ $service->id }}">{{ $service->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="category_id" class="form-label">Category:</label>
+                            <select name="category_id" id="category_id" class="form-select" required>
+                                @foreach ($categories as $category)
+                                <option value="{{ $category->id }}" {{ $service->category_id == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="start_date" class="form-label">Start Date:</label>

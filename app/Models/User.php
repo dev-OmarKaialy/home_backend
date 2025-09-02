@@ -63,6 +63,11 @@ class User extends Authenticatable implements JWTSubject, HasMedia
         return $this->belongsTo(Service::class);
     }
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();

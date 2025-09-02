@@ -45,6 +45,25 @@
 
                     <div class="row mb-3">
                         <div class="col-md-6">
+                            <label for="service_id" class="form-label">Service:</label>
+                            <select name="service_id" id="service_id" class="form-select" required>
+                                @foreach ($services as $service)
+                                <option value="{{ $service->id }}">{{ $service->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="category_id" class="form-label">Category:</label>
+                            <select name="category_id" id="category_id" class="form-select" required>
+                                @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
                             <label for="start_date" class="form-label">Start Date:</label>
                             <input type="date" name="start_date" id="start_date" class="form-control">
                         </div>

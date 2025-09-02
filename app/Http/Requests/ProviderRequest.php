@@ -23,6 +23,8 @@ class ProviderRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'service_id' => 'required|exists:services,id',
             'username' => 'required|string|max:255|unique:users,username,' . $this->id,
             'password' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $this->id,

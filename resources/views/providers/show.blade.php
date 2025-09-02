@@ -64,6 +64,18 @@
                     <p>{{ $provider->hourly_rate ? '$' . $provider->hourly_rate : 'Not set' }}</p>
                     <hr>
 
+                    <h5>Service:</h5>
+                    <p>
+                        {{ ucfirst($provider->service->name ?? '') }}
+                    </p>
+                    <hr>
+
+                    <h5>Category:</h5>
+                    <p>
+                        {{ ucfirst($provider->category->name ?? '') }}
+                    </p>
+                    <hr>
+
                     <h5>Status:</h5>
                     <p>
                         <span class="badge {{ $provider->status == 'active' ? 'bg-success' : 'bg-secondary' }}">
