@@ -26,6 +26,15 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="provider_id" class="form-label">Provider:</label>
+                        <select name="provider_id" id="provider_id" class="form-select" required>
+                            @foreach ($providers as $provider)
+                            <option value="{{ $provider->id }}">{{ $provider->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
                         <label for="category_id" class="form-label">Category:</label>
                         <select name="category_id" id="category_id" class="form-select" required>
                             @foreach ($categories as $category)

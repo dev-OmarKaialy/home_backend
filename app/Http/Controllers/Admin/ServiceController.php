@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Service;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -37,7 +38,8 @@ class ServiceController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('services.create', compact('categories'));
+        $providers = User::all();
+        return view('services.create', compact(['categories', 'providers']));
     }
 
     public function store(Request $request)
@@ -45,6 +47,7 @@ class ServiceController extends Controller
         $data = $request->validate([
             'name' => 'required|string',
             'description' => 'nullable|string',
+            'provider_id' => 'required|exists:users,id',
             'category_id' => 'required|exists:categories,id',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
@@ -55,7 +58,7 @@ class ServiceController extends Controller
             $service->addMediaFromRequest('image')->toMediaCollection('service');
         }
 
-        return redirect()->route('services.Show', $service->id)->with('success', 'Service created');
+        return redirect()->route('services.show', $service->id)->with('success', 'Service created');
     }
 
 
@@ -77,6 +80,7 @@ class ServiceController extends Controller
         $data = $request->validate([
             'name' => 'required|string',
             'description' => 'nullable|string',
+            'provider_id' => 'required|exists:users,id',
             'category_id' => 'required|exists:categories,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);

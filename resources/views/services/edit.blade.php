@@ -35,7 +35,14 @@
                         <label for="description" class="form-label">Description:</label>
                         <textarea name="description" id="description" rows="4" class="form-control">{{ old('description', $service->description) }}</textarea>
                     </div>
-
+                    <div class="mb-3">
+                        <label for="provider_id" class="form-label">Provider:</label>
+                        <select name="provider_id" id="provider_id" class="form-select" required>
+                            @foreach ($providers as $provider)
+                            <option value="{{ $provider->id }}" {{ $service->provider_id == $provider->id ? 'selected' : '' }}>{{ $provider->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="mb-3">
                         <label for="category_id" class="form-label">Category:</label>
                         <select name="category_id" id="category_id" class="form-select" required>

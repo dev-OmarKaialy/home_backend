@@ -24,6 +24,7 @@ class ServiceRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
+            'provider_id' => 'required|exists:users,id',
             'description' => 'required|string',
         ];
     }
