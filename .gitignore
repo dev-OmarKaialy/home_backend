@@ -4,6 +4,7 @@
 /public/hot
 /public/storage
 /public/images/*
+/public/app/images/*
 !/public/images/icon.png
 /storage/app/
 /storage/images/temp
