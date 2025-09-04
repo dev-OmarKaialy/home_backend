@@ -72,7 +72,8 @@ class ServiceController extends Controller
     {
         $service = Service::findOrFail($id);
         $categories = Category::all();
-        return view('services.edit', compact('service', 'categories'));
+        $providers = User::all();
+        return view('services.edit', compact(['service', 'categories', 'providers']));
     }
 
     public function update(Request $request, Service $service)
