@@ -93,7 +93,7 @@ class ServiceController extends Controller
             $service->addMediaFromRequest('image')->toMediaCollection('services');
         }
 
-        return redirect()->route('services.index')->with('success', 'Service updated');
+        return redirect()->back()->with('success', 'Service updated');
     }
     public function delete($id)
     {
