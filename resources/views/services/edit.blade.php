@@ -60,9 +60,9 @@
                         <label class="form-label">Current Image:</label>
                         <div class="row">
                             <div class="col-md-4">
-                                @if ($service->getFirstMediaUrl('service'))
+                                @if ($service->getFirstMediaUrl('services'))
                                 <div class="card border-0 shadow-sm">
-                                    <img src="{{ $service->getFirstMediaUrl('service') }}" class="card-img-top rounded" style="object-fit: cover; height: 150px;">
+                                    <img src="{{ $service->getFirstMediaUrl('services') }}" class="card-img-top rounded" style="object-fit: cover; height: 150px;">
                                 </div>
                                 @else
                                 <p class="text-muted">No image uploaded.</p>
