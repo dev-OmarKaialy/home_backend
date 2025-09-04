@@ -55,7 +55,7 @@ class ServiceController extends Controller
         $service = Service::create($data);
 
         if ($request->hasFile('image')) {
-            $service->addMediaFromRequest('image')->toMediaCollection('service');
+            $service->addMediaFromRequest('image')->toMediaCollection('services');
         }
 
         return redirect()->route('services.show', $service->id)->with('success', 'Service created');

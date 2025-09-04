@@ -63,6 +63,10 @@
 
                     <h5>Category:</h5>
                     <p>{{ $service->category->name ?? 'No category assigned' }}</p>
+                    <hr>
+
+                    <h5>Provider:</h5>
+                    <p>{{ $service->provider->name ?? 'No provider assigned' }}</p>
                 </div>
             </div>
             <!-- END MAIN CONTENT-->
