@@ -116,7 +116,7 @@ class HouseController extends Controller
             ->with('success', 'House updated successfully!');
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $house = House::findOrFail($id);
 
