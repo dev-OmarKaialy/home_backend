@@ -18,7 +18,7 @@ class HouseController extends Controller
      */
     public function index(Request $request)
     {
-        $query = House::with('address')->where('status', 'available');
+        $query = House::with('address');
 
         if ($request->filled('address')) {
             $address = $request->address;
@@ -38,6 +38,7 @@ class HouseController extends Controller
         }
 
         $houses = $query->orderBy('views_count', 'desc')->paginate(10);
+
 
         return response()->json([
             'status' => 'success',
