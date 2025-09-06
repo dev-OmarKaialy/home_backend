@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\HouseRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\HouseResource;
+use App\Models\Service;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class HouseController extends Controller
@@ -152,6 +153,37 @@ class HouseController extends Controller
             'buyerSignature' => $buyerSignature
         ]);
         $fileName = 'house-' . $house->id . '-signed.pdf';
+        $filePath = public_path('pdfs/' . $fileName);
+
+        if (!file_exists(public_path('pdfs'))) {
+            mkdir(public_path('pdfs'), 0777, true);
+        }
+
+        $pdf->save($filePath);
+
+        return response()->json([
+            'status' => 'success',
+            'file_url' => url('pdfs/' . $fileName)
+        ]);
+    }
+
+    public function signService(Request $request, $id)
+    {
+        $service = Service::findOrFail($id);
+
+        $buyerSignature = null;
+
+        if ($request->hasFile('buyer_signature')) {
+            $buyerSignature = 'data:image/png;base64,' . base64_encode(
+                file_get_contents($request->file('buyer_signature'))
+            );
+        }
+
+        $pdf = Pdf::loadView('services.pdf', [
+            'service' => $service,
+            'buyerSignature' => $buyerSignature
+        ]);
+        $fileName = 'service-' . $service->id . '-signed.pdf';
         $filePath = public_path('pdfs/' . $fileName);
 
         if (!file_exists(public_path('pdfs'))) {

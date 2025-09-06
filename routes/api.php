@@ -46,6 +46,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::delete('join-request/{id}', [\App\Http\Controllers\JoinRequestController::class, 'destroy']);
 
     Route::post('houses/sign/{id}', [\App\Http\Controllers\HouseController::class, 'sign']);
+    Route::post('services/sign/{id}', [\App\Http\Controllers\HouseController::class, 'signService']);
 });
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [\App\Http\Controllers\CustomAuthController::class, 'login']);

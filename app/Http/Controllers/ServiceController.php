@@ -17,6 +17,7 @@ use App\Http\Resources\ServiceResource;
 use App\Http\Requests\ServiceProviderRequest;
 use Illuminate\Routing\Controllers\Middleware;
 use App\Http\Resources\ServiceProviderResource;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
 class ServiceController extends Controller implements HasMiddleware
