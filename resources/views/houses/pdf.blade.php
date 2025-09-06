@@ -123,6 +123,9 @@
         <br>
         <br>
         <div>Buyer / Tenant's Signature</div>
+        @if(!empty($buyerSignature))
+        <img src="{{ $buyerSignature }}" alt="Buyer Signature" style="max-height:80px; margin-bottom:5px;">
+        @endif
     </div>
 
 </body>

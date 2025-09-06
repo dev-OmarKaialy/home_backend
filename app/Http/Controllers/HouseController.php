@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\HouseRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\HouseResource;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class HouseController extends Controller
 {
@@ -132,5 +133,36 @@ class HouseController extends Controller
         } catch (\Exception $e) {
             return ApiResponse::error('Failed to delete house', 500, $e->getMessage());
         }
+    }
+
+    public function sign(Request $request, $id)
+    {
+        $house = House::findOrFail($id);
+
+        $buyerSignature = null;
+
+        if ($request->hasFile('buyer_signature')) {
+            $buyerSignature = 'data:image/png;base64,' . base64_encode(
+                file_get_contents($request->file('buyer_signature'))
+            );
+        }
+
+        $pdf = Pdf::loadView('houses.pdf', [
+            'house' => $house,
+            'buyerSignature' => $buyerSignature
+        ]);
+        $fileName = 'house-' . $house->id . '-signed.pdf';
+        $filePath = public_path('pdfs/' . $fileName);
+
+        if (!file_exists(public_path('pdfs'))) {
+            mkdir(public_path('pdfs'), 0777, true);
+        }
+
+        $pdf->save($filePath);
+
+        return response()->json([
+            'status' => 'success',
+            'file_url' => url('pdfs/' . $fileName)
+        ]);
     }
 }
