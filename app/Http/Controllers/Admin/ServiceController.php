@@ -95,7 +95,7 @@ class ServiceController extends Controller
 
         return redirect()->back()->with('success', 'Service updated');
     }
-    public function delete($id)
+    public function destroy($id)
     {
         $service = Service::findOrFail($id);
 
